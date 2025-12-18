@@ -1,46 +1,60 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:oryzn/provider/counter_notifier.dart';
+import '../provider/counter_provider.dart';
 
-class Home extends ConsumerWidget {
-  const Home({Key? key}) : super(key: key);
+class CounterPage extends ConsumerWidget {
+  const CounterPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print("Build");
+    print("build");
+    // 👇 WATCH STATE (rebuilds UI)
+    final counterState = ref.watch(counterProvider);
+    final counterNotifer = ref.read(counterProvider.notifier);
+    // final counterController = Get.find<CounterController>();
+
     return Scaffold(
-      appBar: AppBar(title: Text("Hello World!")),
-      body: Column(
-        children: [
-          Consumer(
-            builder: (context, ref, child) {
-              final count = ref.watch(counterNotifier);
-              return Text(count.toString());
-            },
-          ),
-          Row(
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  ref.read(counterNotifier.notifier).increment();
-                },
-                child: Text("+"),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  ref.read(counterNotifier.notifier).decrement();
-                },
-                child: Text("-"),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  ref.read(counterNotifier.notifier).reset();
-                },
-                child: Text("Reset"),
-              ),
-            ],
-          ),
-        ],
+      appBar: AppBar(title: const Text('Riverpod Counter')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              counterState.count.toString(),
+              // counterController.count.toString();
+              style: const TextStyle(fontSize: 40),
+            ),
+            const SizedBox(height: 20),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    counterNotifer.decrement();
+                  },
+                  child: const Text('-'),
+                ),
+                const SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    counterNotifer.increment();
+                  },
+                  child: const Text('+'),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 10),
+
+            ElevatedButton(
+              onPressed: () {
+                counterNotifer.reset();
+              },
+              child: const Text('Reset'),
+            ),
+          ],
+        ),
       ),
     );
   }

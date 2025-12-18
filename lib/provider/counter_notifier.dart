@@ -1,13 +1,18 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:oryzn/provider/counter_state.dart';
+import 'package:riverpod/riverpod.dart';
 
-class CounterNotifier extends StateNotifier<int> {
-  CounterNotifier() : super(0);
+class CounterNotifier extends StateNotifier<CounterState> {
+  CounterNotifier() : super(CounterState(count: 0));
 
-  void increment() => state++;
-  void decrement() => state--;
-  void reset() => state = 0;
+  void increment() {
+    state = state.copyWith(count: state.count + 1);
+  }
+
+  void decrement() {
+    state = state.copyWith(count: state.count - 1);
+  }
+
+  void reset(){
+    state = state.copyWith(count: 0);
+  }
 }
-
-final counterNotifier = StateNotifierProvider<CounterNotifier, int>(
-  (ref) => CounterNotifier(),
-);
