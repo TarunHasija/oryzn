@@ -11,10 +11,6 @@
 
 import 'package:flutter/widgets.dart';
 
-class $AssetsFontsGen {
-  const $AssetsFontsGen();
-}
-
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
@@ -119,7 +115,6 @@ class $AssetsImagesGen {
 class Assets {
   const Assets._();
 
-  static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 
