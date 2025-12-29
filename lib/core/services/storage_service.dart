@@ -1,5 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:oryzn/core/constants/constants_export.dart';
+import 'package:oryzn/core/constants/storage_key.dart';
 
 class StorageService {
   static late Box _storageBox;

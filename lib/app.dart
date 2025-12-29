@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oryzn/core/router/app_router.dart';
+import 'package:oryzn/core/theme/app_theme.dart';
 import 'package:oryzn/core/theme/theme_provider.dart';
 
 class MyApp extends ConsumerWidget {
@@ -13,8 +14,8 @@ class MyApp extends ConsumerWidget {
 
     return MaterialApp.router(
       themeMode: themeMode,
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
       routerConfig: router,
     );
   }

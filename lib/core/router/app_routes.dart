@@ -1,6 +1,7 @@
 /// Centralized route paths for the app
 class AppRoutes {
   AppRoutes._();
+  static const String splash = '/splash';
 
   // Auth routes
   static const String login = '/login';

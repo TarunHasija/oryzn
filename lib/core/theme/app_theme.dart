@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:oryzn/core/constants/constants_export.dart';
+import 'package:oryzn/core/constants/app_colors.dart';
 import 'package:oryzn/core/theme/text_theme.dart';
 
 class AppTheme {

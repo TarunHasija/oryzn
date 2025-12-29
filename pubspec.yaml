@@ -46,6 +46,9 @@ dependencies:
   google_sign_in: ^7.2.0
   build_runner: ^2.10.4
   build: ^4.0.3
+  flutter_bounceable: ^1.2.0
+  flutter_svg: ^2.2.3
+  gap: ^3.0.1
   
 dev_dependencies:
   flutter_test:
@@ -96,17 +99,17 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-fonts:
-  - family: Space Mono
-    fonts:
-      - asset: assets/fonts/Space_Mono/SpaceMono-Regular.ttf
-      - asset: assets/fonts/Space_Mono/SpaceMono-Bold.ttf
-        weight: 700
-      - asset: assets/fonts/Space_Mono/SpaceMono-Italic.ttf
-        style: italic
-      - asset: assets/fonts/Space_Mono/SpaceMono-BoldItalic.ttf
-        weight: 700
-        style: italic
+  fonts:
+    - family: Space Mono
+      fonts:
+        - asset: assets/fonts/Space_Mono/SpaceMono-Regular.ttf
+        - asset: assets/fonts/Space_Mono/SpaceMono-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Space_Mono/SpaceMono-Italic.ttf
+          style: italic
+        - asset: assets/fonts/Space_Mono/SpaceMono-BoldItalic.ttf
+          weight: 700
+          style: italic
 
   #
   # For details regarding fonts from package dependencies,

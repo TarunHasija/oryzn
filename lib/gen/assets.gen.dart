@@ -14,9 +14,24 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/app_icon.png
+  AssetGenImage get appIcon =>
+      const AssetGenImage('assets/images/app_icon.png');
+
+  /// File path: assets/images/background_icon.png
+  AssetGenImage get backgroundIcon =>
+      const AssetGenImage('assets/images/background_icon.png');
+
   /// File path: assets/images/dotted_bg.png
   AssetGenImage get dottedBg =>
       const AssetGenImage('assets/images/dotted_bg.png');
+
+  /// File path: assets/images/foreground_icon.png
+  AssetGenImage get foregroundIconPng =>
+      const AssetGenImage('assets/images/foreground_icon.png');
+
+  /// File path: assets/images/foreground_icon.svg
+  String get foregroundIconSvg => 'assets/images/foreground_icon.svg';
 
   /// File path: assets/images/icon_01.svg
   String get icon01 => 'assets/images/icon_01.svg';
@@ -86,7 +101,11 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<dynamic> get values => [
+    appIcon,
+    backgroundIcon,
     dottedBg,
+    foregroundIconPng,
+    foregroundIconSvg,
     icon01,
     icon02,
     icon03,
