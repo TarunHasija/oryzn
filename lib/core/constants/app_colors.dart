@@ -1,43 +1,69 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:oryzn/core/theme/theme_provider.dart';
+
+/// Reactive color provider that switches based on theme
+final appColorsProvider = Provider<AppColors>((ref) {
+  final themeMode = ref.watch(themeProvider);
+  return themeMode == ThemeMode.dark ? AppColors.dark() : AppColors.light();
+});
 
 class AppColors {
-  const AppColors._();
-}
+  final Color surfacePrimary;
+  final Color textIconPrimary;
+  final Color textIconSecondary;
+  final Color surfaceSecondary;
+  final Color strokeNeutral;
+  final Color surfacePrimaryInvert;
+  final Color textIconPrimaryInvert;
+  final Color strokeNeutralVariant;
+  final Color surfaceSecondaryVariant;
+  final Color textIconSecondaryVariant;
+  final Color surfacePrimaryVariant;
+  final Color surfaceTertiary;
 
-class LightColors {
-  LightColors._();
+  const AppColors._({
+    required this.surfacePrimary,
+    required this.textIconPrimary,
+    required this.textIconSecondary,
+    required this.surfaceSecondary,
+    required this.strokeNeutral,
+    required this.surfacePrimaryInvert,
+    required this.textIconPrimaryInvert,
+    required this.strokeNeutralVariant,
+    required this.surfaceSecondaryVariant,
+    required this.textIconSecondaryVariant,
+    required this.surfacePrimaryVariant,
+    required this.surfaceTertiary,
+  });
 
-  static const Color lightSurfacePrimary = Color(0xFFFFFFFF);
-  static const Color lightTextIconPrimary = Color(0xFF1C1C1C);
-  static const Color lightTextIconSecondary = Color(0xFFABABAB);
-  static const Color lightSurfaceSecondary = Color(0xFFF0F0F0);
-  static const Color lightStrokeNeutral = Color(0xFFCFCFCF);
+  factory AppColors.light() => const AppColors._(
+        surfacePrimary: Color(0xFFFFFFFF),
+        textIconPrimary: Color(0xFF1C1C1C),
+        textIconSecondary: Color(0xFFABABAB),
+        surfaceSecondary: Color(0xFFF0F0F0),
+        strokeNeutral: Color(0xFFCFCFCF),
+        surfacePrimaryInvert: Color(0xFF1C1C1C),
+        textIconPrimaryInvert: Color(0xFFFFFFFF),
+        strokeNeutralVariant: Color(0xFFC2C2C2),
+        surfaceSecondaryVariant: Color(0xFFDFDFDF),
+        textIconSecondaryVariant: Color(0xFFAAAAAA),
+        surfacePrimaryVariant: Color(0xFF333333),
+        surfaceTertiary: Color(0xFF949494),
+      );
 
-  static const Color lightSurfacePrimaryInvert = Color(0xFF1C1C1C);
-  static const Color lightTextIconPrimaryInvert = Color(0xFFFFFFFF);
-
-  static const Color lightStrokeNeutralVariant = Color(0xFFC2C2C2);
-  static const Color lightSurfaceSecondaryVariant = Color(0xFFDFDFDF);
-  static const Color lightTextIconSecondaryVariant = Color(0xFFAAAAAA);
-  static const Color lightSurfacePrimaryVariant = Color(0xFF333333);
-  static const Color lightSurfaceTertiary = Color(0xFF949494);
-}
-
-class DarkColors {
-  DarkColors._();
-
-  static const Color darkSurfacePrimary = Color(0xFF1C1C1C);
-  static const Color darkTextIconPrimary = Color(0xFFFFFFFF);
-  static const Color darkTextIconSecondary = Color(0xFF747373);
-  static const Color darkSurfaceSecondary = Color(0xFF363636);
-  static const Color darkStrokeNeutral = Color(0xFF4D4D4D);
-
-  static const Color darkSurfacePrimaryInvert = Color(0xFFFFFFFF);
-  static const Color darkTextIconPrimaryInvert = Color(0xFF1C1C1C);
-
-  static const Color darkStrokeNeutralVariant = Color(0xFFB3B2B2);
-  static const Color darkSurfaceSecondaryVariant = Color(0xFF4E4E4E);
-  static const Color darkTextIconSecondaryVariant = Color(0xFFAAAAAA);
-  static const Color darkSurfacePrimaryVariant = Color(0xFFFFFFFF);
-  static const Color darkSurfaceTertiary = Color(0xFF444444);
+  factory AppColors.dark() => const AppColors._(
+        surfacePrimary: Color(0xFF1C1C1C),
+        textIconPrimary: Color(0xFFFFFFFF),
+        textIconSecondary: Color(0xFF747373),
+        surfaceSecondary: Color(0xFF363636),
+        strokeNeutral: Color(0xFF4D4D4D),
+        surfacePrimaryInvert: Color(0xFFFFFFFF),
+        textIconPrimaryInvert: Color(0xFF1C1C1C),
+        strokeNeutralVariant: Color(0xFFB3B2B2),
+        surfaceSecondaryVariant: Color(0xFF4E4E4E),
+        textIconSecondaryVariant: Color(0xFFAAAAAA),
+        surfacePrimaryVariant: Color(0xFFFFFFFF),
+        surfaceTertiary: Color(0xFF444444),
+      );
 }
