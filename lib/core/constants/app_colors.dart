@@ -21,6 +21,7 @@ class AppColors {
   final Color textIconSecondaryVariant;
   final Color surfacePrimaryVariant;
   final Color surfaceTertiary;
+  final LinearGradient splashSvgGradient;
 
   const AppColors._({
     required this.surfacePrimary,
@@ -35,35 +36,46 @@ class AppColors {
     required this.textIconSecondaryVariant,
     required this.surfacePrimaryVariant,
     required this.surfaceTertiary,
+    required this.splashSvgGradient,
   });
 
   factory AppColors.light() => const AppColors._(
-        surfacePrimary: Color(0xFFFFFFFF),
-        textIconPrimary: Color(0xFF1C1C1C),
-        textIconSecondary: Color(0xFFABABAB),
-        surfaceSecondary: Color(0xFFF0F0F0),
-        strokeNeutral: Color(0xFFCFCFCF),
-        surfacePrimaryInvert: Color(0xFF1C1C1C),
-        textIconPrimaryInvert: Color(0xFFFFFFFF),
-        strokeNeutralVariant: Color(0xFFC2C2C2),
-        surfaceSecondaryVariant: Color(0xFFDFDFDF),
-        textIconSecondaryVariant: Color(0xFFAAAAAA),
-        surfacePrimaryVariant: Color(0xFF333333),
-        surfaceTertiary: Color(0xFF949494),
-      );
+    surfacePrimary: Color(0xFFFFFFFF),
+    textIconPrimary: Color(0xFF1C1C1C),
+    textIconSecondary: Color(0xFFABABAB),
+    surfaceSecondary: Color(0xFFF0F0F0),
+    strokeNeutral: Color(0xFFCFCFCF),
+    surfacePrimaryInvert: Color(0xFF1C1C1C),
+    textIconPrimaryInvert: Color(0xFFFFFFFF),
+    strokeNeutralVariant: Color(0xFFC2C2C2),
+    surfaceSecondaryVariant: Color(0xFFDFDFDF),
+    textIconSecondaryVariant: Color(0xFFAAAAAA),
+    surfacePrimaryVariant: Color(0xFF333333),
+    surfaceTertiary: Color(0xFF949494),
+    splashSvgGradient: LinearGradient(
+      colors: [Color(0xFFFFFFFF), Color(0xFFB8B8B8)],
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+    ),
+  );
 
   factory AppColors.dark() => const AppColors._(
-        surfacePrimary: Color(0xFF1C1C1C),
-        textIconPrimary: Color(0xFFFFFFFF),
-        textIconSecondary: Color(0xFF747373),
-        surfaceSecondary: Color(0xFF363636),
-        strokeNeutral: Color(0xFF4D4D4D),
-        surfacePrimaryInvert: Color(0xFFFFFFFF),
-        textIconPrimaryInvert: Color(0xFF1C1C1C),
-        strokeNeutralVariant: Color(0xFFB3B2B2),
-        surfaceSecondaryVariant: Color(0xFF4E4E4E),
-        textIconSecondaryVariant: Color(0xFFAAAAAA),
-        surfacePrimaryVariant: Color(0xFFFFFFFF),
-        surfaceTertiary: Color(0xFF444444),
-      );
+    surfacePrimary: Color(0xFF1C1C1C),
+    textIconPrimary: Color(0xFFFFFFFF),
+    textIconSecondary: Color(0xFF747373),
+    surfaceSecondary: Color(0xFF363636),
+    strokeNeutral: Color(0xFF4D4D4D),
+    surfacePrimaryInvert: Color(0xFFFFFFFF),
+    textIconPrimaryInvert: Color(0xFF1C1C1C),
+    strokeNeutralVariant: Color(0xFFB3B2B2),
+    surfaceSecondaryVariant: Color(0xFF4E4E4E),
+    textIconSecondaryVariant: Color(0xFFAAAAAA),
+    surfacePrimaryVariant: Color(0xFFFFFFFF),
+    surfaceTertiary: Color(0xFF444444),
+    splashSvgGradient: LinearGradient(
+      colors: [Color(0xFF1C1C1C), Color(0xFF3D3D3D)],
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+    ),
+  );
 }

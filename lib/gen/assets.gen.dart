@@ -22,6 +22,9 @@ class $AssetsImagesGen {
   AssetGenImage get backgroundIcon =>
       const AssetGenImage('assets/images/background_icon.png');
 
+  /// File path: assets/images/dot_bg.svg
+  String get dotBg => 'assets/images/dot_bg.svg';
+
   /// File path: assets/images/dotted_bg.png
   AssetGenImage get dottedBg =>
       const AssetGenImage('assets/images/dotted_bg.png');
@@ -32,6 +35,9 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/foreground_icon.svg
   String get foregroundIconSvg => 'assets/images/foreground_icon.svg';
+
+  /// File path: assets/images/google_icon.svg
+  String get googleIcon => 'assets/images/google_icon.svg';
 
   /// File path: assets/images/icon_01.svg
   String get icon01 => 'assets/images/icon_01.svg';
@@ -99,13 +105,18 @@ class $AssetsImagesGen {
   /// File path: assets/images/shapes.png
   AssetGenImage get shapes => const AssetGenImage('assets/images/shapes.png');
 
+  /// File path: assets/images/splash_shapes.svg
+  String get splashShapes => 'assets/images/splash_shapes.svg';
+
   /// List of all assets
   List<dynamic> get values => [
     appIcon,
     backgroundIcon,
+    dotBg,
     dottedBg,
     foregroundIconPng,
     foregroundIconSvg,
+    googleIcon,
     icon01,
     icon02,
     icon03,
@@ -128,6 +139,7 @@ class $AssetsImagesGen {
     icon20,
     icon21,
     shapes,
+    splashShapes,
   ];
 }
 
