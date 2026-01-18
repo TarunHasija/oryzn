@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "430690791393",
+    "project_id": "oryzn-3c0b7",
+    "storage_bucket": "oryzn-3c0b7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:430690791393:android:875c1cf126e69ee79d6ca0",
+        "android_client_info": {
+          "package_name": "com.example.oryzn"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABzie_eJYQ1Vy8OO4k7aMVugVrzfYpBoQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

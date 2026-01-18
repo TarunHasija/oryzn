@@ -1,10 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
+import 'package:oryzn/core/router/app_routes.dart';
 import 'package:oryzn/core/theme/theme_provider.dart';
 import 'package:oryzn/extensions/extensions.dart';
+import 'package:oryzn/features/auth/riverpod/provider/auth_provider.dart';
 
 import '../../../core/widgets/widgets.dart';
 import '../../../gen/assets.gen.dart';
@@ -14,7 +19,15 @@ class LoginView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    TextEditingController _emailController = TextEditingController();
+    final emailController = TextEditingController();
+
+    ref.listen(authProvider, (previous, next) {
+      log('Auth state changed: isAuthenticated=${next.isAuthenticated}, isLoading=${next.isLoading}, userId=${next.userId}', name: 'LoginView');
+      if (next.isAuthenticated && !next.isLoading) {
+        log('Navigating to home...', name: 'LoginView');
+        context.go(AppRoutes.home);
+      }
+    });
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -91,7 +104,7 @@ class LoginView extends ConsumerWidget {
                   ),
                   Gap(92),
                   TextFormField(
-                    controller: _emailController,
+                    controller: emailController,
                     decoration: InputDecoration(
                       hintText: "Enter your mail",
                       hintStyle: context.labelLarge.copyWith(
@@ -168,43 +181,51 @@ class LoginView extends ConsumerWidget {
                     spacing: 32,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Column(
-                        children: [
-                          CustomIcon(
-                            borderRadius: 16,
-                            backgroundColor: ref.colors.surfaceSecondary,
-                            asset: Assets.images.googleIcon,
-                            size: 40,
-                            padding: 12,
-                          ),
-                          Gap(8),
-                          Text(
-                            "Google",
-                            style: context.labelLarge.copyWith(
-                              color: ref.colors.textIconSecondaryVariant,
+                      Bounceable(
+                        onTap: () {
+                          ref.read(authProvider.notifier).signInWithGoogle();
+                        },
+                        child: Column(
+                          children: [
+                            CustomIcon(
+                              borderRadius: 16,
+                              backgroundColor: ref.colors.surfaceSecondary,
+                              asset: Assets.images.googleIcon,
+                              size: 40,
+                              padding: 12,
                             ),
-                          ),
-                        ],
+                            Gap(8),
+                            Text(
+                              "Google",
+                              style: context.labelLarge.copyWith(
+                                color: ref.colors.textIconSecondaryVariant,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      Column(
-                        children: [
-                          CustomIcon(
-                            borderRadius: 16,
-                            backgroundColor: ref.colors.surfaceSecondary,
-                            icon: Icons.person_2_outlined,
-
-                            size: 40,
-                            padding: 12,
-                          ),
-                          Gap(8),
-
-                          Text(
-                            "Guest",
-                            style: context.labelLarge.copyWith(
-                              color: ref.colors.textIconSecondaryVariant,
+                      Bounceable(
+                        onTap: () {
+                          ref.read(authProvider.notifier).signInAnonymously();
+                        },
+                        child: Column(
+                          children: [
+                            CustomIcon(
+                              borderRadius: 16,
+                              backgroundColor: ref.colors.surfaceSecondary,
+                              icon: Icons.person_2_outlined,
+                              size: 40,
+                              padding: 12,
                             ),
-                          ),
-                        ],
+                            Gap(8),
+                            Text(
+                              "Guest",
+                              style: context.labelLarge.copyWith(
+                                color: ref.colors.textIconSecondaryVariant,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

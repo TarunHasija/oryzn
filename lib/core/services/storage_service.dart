@@ -16,4 +16,20 @@ class StorageService {
   static Future<void> setIsDarkMode(bool isDark) async {
     await _storageBox.put(StorageKey.theme, isDark);
   }
+
+  static Future<void> setUserLoggedIn(bool isLoggedIn) async {
+    await _storageBox.put(StorageKey.userLoggedIn, isLoggedIn);
+  }
+
+  static bool getUserLoggedIn() {
+    return _storageBox.get(StorageKey.userLoggedIn, defaultValue: false);
+  }
+
+  static Future<void> setUserName(String userName) async {
+    await _storageBox.put(StorageKey.userName, userName);
+  }
+
+  static String getUserName() {
+    return _storageBox.get(StorageKey.userName, defaultValue: 'User');
+  }
 }
