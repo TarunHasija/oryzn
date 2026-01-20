@@ -62,9 +62,12 @@ class AuthNotifier extends StateNotifier<AuthState> {
     state = state.copyWith(isLoading: true);
     try {
       await _authService.signOut();
-      state = const AuthState();
     } catch (e) {
-      state = state.copyWith(isLoading: false, errorMessage: e.toString());
+      // Sign out may fail offline, but we still clear local state
+      log('SignOut error (may be offline): $e', name: 'AuthNotifier');
     }
+    // Always clear local state regardless of network
+    StorageService.setUserLoggedIn(false);
+    state = const AuthState();
   }
 }

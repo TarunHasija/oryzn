@@ -1,12 +1,10 @@
-import 'dart:developer';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oryzn/core/router/app_routes.dart';
+import 'package:oryzn/core/services/storage_service.dart';
 import 'package:oryzn/core/theme/theme_provider.dart';
 import 'package:oryzn/extensions/extensions.dart';
 
@@ -31,13 +29,13 @@ class _SplashViewState extends ConsumerState<SplashView> {
     await Future.delayed(const Duration(seconds: 2));
     if (!mounted) return;
 
-    /// [reads from local cache]
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      log(user.toString(),name: "Login User");
+    // Check local storage - works offline
+    final isLoggedIn = StorageService.getUserLoggedIn();
+    if (isLoggedIn) {
       context.go(AppRoutes.home);
     } else {
-      context.go(AppRoutes.login);
+      // change to home screen
+      context.go(AppRoutes.home);
     }
   }
 

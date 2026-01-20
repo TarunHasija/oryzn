@@ -22,6 +22,7 @@ class AppColors {
   final Color surfacePrimaryVariant;
   final Color surfaceTertiary;
   final LinearGradient splashSvgGradient;
+  final Color activeDay;
 
   const AppColors._({
     required this.surfacePrimary,
@@ -37,6 +38,7 @@ class AppColors {
     required this.surfacePrimaryVariant,
     required this.surfaceTertiary,
     required this.splashSvgGradient,
+    required this.activeDay,
   });
 
   factory AppColors.light() => const AppColors._(
@@ -51,12 +53,13 @@ class AppColors {
     surfaceSecondaryVariant: Color(0xFFDFDFDF),
     textIconSecondaryVariant: Color(0xFFAAAAAA),
     surfacePrimaryVariant: Color(0xFF333333),
-    surfaceTertiary: Color(0xFF949494),
+    surfaceTertiary: Color(0xFFD5D5D5),
     splashSvgGradient: LinearGradient(
       colors: [Color(0xFFFFFFFF), Color(0xFFB8B8B8)],
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
     ),
+    activeDay: Color(0xFFFF4400),
   );
 
   factory AppColors.dark() => const AppColors._(
@@ -77,5 +80,6 @@ class AppColors {
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
     ),
+    activeDay: Color(0xFFFF4400),
   );
 }

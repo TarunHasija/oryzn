@@ -82,7 +82,7 @@ TextTheme buildTextTheme(AppColors colors) {
     ),
     labelLarge: TextStyle(
       fontFamily: 'Space Mono',
-      fontWeight: _bold,
+      fontWeight: _regular,
       fontSize: 14,
       color: colors.textIconPrimary,
     ),

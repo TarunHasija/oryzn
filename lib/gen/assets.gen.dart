@@ -18,6 +18,61 @@ class $AssetsImagesGen {
   AssetGenImage get appIcon =>
       const AssetGenImage('assets/images/app_icon.png');
 
+  /// File path: assets/images/avatar1.png
+  AssetGenImage get avatar1 => const AssetGenImage('assets/images/avatar1.png');
+
+  /// File path: assets/images/avatar10.png
+  AssetGenImage get avatar10 =>
+      const AssetGenImage('assets/images/avatar10.png');
+
+  /// File path: assets/images/avatar11.png
+  AssetGenImage get avatar11 =>
+      const AssetGenImage('assets/images/avatar11.png');
+
+  /// File path: assets/images/avatar12.png
+  AssetGenImage get avatar12 =>
+      const AssetGenImage('assets/images/avatar12.png');
+
+  /// File path: assets/images/avatar13.png
+  AssetGenImage get avatar13 =>
+      const AssetGenImage('assets/images/avatar13.png');
+
+  /// File path: assets/images/avatar14.png
+  AssetGenImage get avatar14 =>
+      const AssetGenImage('assets/images/avatar14.png');
+
+  /// File path: assets/images/avatar15.png
+  AssetGenImage get avatar15 =>
+      const AssetGenImage('assets/images/avatar15.png');
+
+  /// File path: assets/images/avatar16.png
+  AssetGenImage get avatar16 =>
+      const AssetGenImage('assets/images/avatar16.png');
+
+  /// File path: assets/images/avatar2.png
+  AssetGenImage get avatar2 => const AssetGenImage('assets/images/avatar2.png');
+
+  /// File path: assets/images/avatar3.png
+  AssetGenImage get avatar3 => const AssetGenImage('assets/images/avatar3.png');
+
+  /// File path: assets/images/avatar4.png
+  AssetGenImage get avatar4 => const AssetGenImage('assets/images/avatar4.png');
+
+  /// File path: assets/images/avatar5.png
+  AssetGenImage get avatar5 => const AssetGenImage('assets/images/avatar5.png');
+
+  /// File path: assets/images/avatar6.png
+  AssetGenImage get avatar6 => const AssetGenImage('assets/images/avatar6.png');
+
+  /// File path: assets/images/avatar7.png
+  AssetGenImage get avatar7 => const AssetGenImage('assets/images/avatar7.png');
+
+  /// File path: assets/images/avatar8.png
+  AssetGenImage get avatar8 => const AssetGenImage('assets/images/avatar8.png');
+
+  /// File path: assets/images/avatar9.png
+  AssetGenImage get avatar9 => const AssetGenImage('assets/images/avatar9.png');
+
   /// File path: assets/images/background_icon.png
   AssetGenImage get backgroundIcon =>
       const AssetGenImage('assets/images/background_icon.png');
@@ -111,6 +166,22 @@ class $AssetsImagesGen {
   /// List of all assets
   List<dynamic> get values => [
     appIcon,
+    avatar1,
+    avatar10,
+    avatar11,
+    avatar12,
+    avatar13,
+    avatar14,
+    avatar15,
+    avatar16,
+    avatar2,
+    avatar3,
+    avatar4,
+    avatar5,
+    avatar6,
+    avatar7,
+    avatar8,
+    avatar9,
     backgroundIcon,
     dotBg,
     dottedBg,
