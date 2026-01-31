@@ -31,7 +31,7 @@ class MainAppBar extends ConsumerWidget {
                   Text("Hola 👋🏻", style: context.bodyMedium),
                   Text(
                     "Tarun",
-                    style: context.titleLarge.copyWith(fontSize: 20),
+                    style: context.titleLarge.copyWith(fontSize: 18),
                   ),
                 ],
               ),
