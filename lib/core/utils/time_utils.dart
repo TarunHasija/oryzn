@@ -22,15 +22,39 @@ class TimeUtils {
     return date.difference(start).inDays + 1;
   }
 
-  static DayState getDayState({
+  /// Days in month 28-31
+  static int daysInMonth(int year, int month) {
+    return DateTime(year, month + 1, 0).day;
+  }
+
+  static int dayOfMonth(DateTime date) {
+    return date.day;
+  }
+
+  static DayState getDayStateForYear({
     required int index,
-    required int todayDayOfYear,
+    required int todayDayInYear,
   }) {
     final dayNumber = index + 1;
 
-    if (dayNumber < todayDayOfYear) {
+    if (dayNumber < todayDayInYear) {
       return DayState.past;
-    } else if (dayNumber == todayDayOfYear) {
+    } else if (dayNumber == todayDayInYear) {
+      return DayState.today;
+    } else {
+      return DayState.future;
+    }
+  }
+
+  static DayState getDayStateForMonth({
+    required int index,
+    required int todayDayInMonth,
+  }) {
+    final dayNumber = index + 1;
+
+    if (dayNumber < todayDayInMonth) {
+      return DayState.past;
+    } else if (dayNumber == todayDayInMonth) {
       return DayState.today;
     } else {
       return DayState.future;
@@ -51,6 +75,18 @@ class TimeUtils {
 
       case DayState.future:
         return ref.colors.surfaceTertiary;
+    }
+  }
+
+  static String getHourAsset(DateTime time) {
+    final hour = time.hour;
+    final minute = time.minute;
+
+    final isHalfHour = minute >= 30;
+    if (isHalfHour) {
+      return 'assets/hours/hour_$hour.5.svg';
+    } else {
+      return 'assets/hours/hour_$hour.0.svg';
     }
   }
 }

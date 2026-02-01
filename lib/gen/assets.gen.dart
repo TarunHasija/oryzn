@@ -11,6 +11,214 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsHoursGen {
+  const $AssetsHoursGen();
+
+  /// File path: assets/hours/hour_0.5.svg
+  String get hour05 => 'assets/hours/hour_0.5.svg';
+
+  /// File path: assets/hours/hour_0.svg
+  String get hour0 => 'assets/hours/hour_0.svg';
+
+  /// File path: assets/hours/hour_1.0.svg
+  String get hour10 => 'assets/hours/hour_1.0.svg';
+
+  /// File path: assets/hours/hour_1.5.svg
+  String get hour15 => 'assets/hours/hour_1.5.svg';
+
+  /// File path: assets/hours/hour_10.0.svg
+  String get hour100 => 'assets/hours/hour_10.0.svg';
+
+  /// File path: assets/hours/hour_10.5.svg
+  String get hour105 => 'assets/hours/hour_10.5.svg';
+
+  /// File path: assets/hours/hour_11.0.svg
+  String get hour110 => 'assets/hours/hour_11.0.svg';
+
+  /// File path: assets/hours/hour_11.5.svg
+  String get hour115 => 'assets/hours/hour_11.5.svg';
+
+  /// File path: assets/hours/hour_12.0.svg
+  String get hour120 => 'assets/hours/hour_12.0.svg';
+
+  /// File path: assets/hours/hour_12.5.svg
+  String get hour125 => 'assets/hours/hour_12.5.svg';
+
+  /// File path: assets/hours/hour_13.0.svg
+  String get hour130 => 'assets/hours/hour_13.0.svg';
+
+  /// File path: assets/hours/hour_13.5.svg
+  String get hour135 => 'assets/hours/hour_13.5.svg';
+
+  /// File path: assets/hours/hour_14.0.svg
+  String get hour140 => 'assets/hours/hour_14.0.svg';
+
+  /// File path: assets/hours/hour_14.5.svg
+  String get hour145 => 'assets/hours/hour_14.5.svg';
+
+  /// File path: assets/hours/hour_15.0.svg
+  String get hour150 => 'assets/hours/hour_15.0.svg';
+
+  /// File path: assets/hours/hour_15.5.svg
+  String get hour155 => 'assets/hours/hour_15.5.svg';
+
+  /// File path: assets/hours/hour_16.0.svg
+  String get hour160 => 'assets/hours/hour_16.0.svg';
+
+  /// File path: assets/hours/hour_16.5.svg
+  String get hour165 => 'assets/hours/hour_16.5.svg';
+
+  /// File path: assets/hours/hour_17.0.svg
+  String get hour170 => 'assets/hours/hour_17.0.svg';
+
+  /// File path: assets/hours/hour_17.5.svg
+  String get hour175 => 'assets/hours/hour_17.5.svg';
+
+  /// File path: assets/hours/hour_18.0.svg
+  String get hour180 => 'assets/hours/hour_18.0.svg';
+
+  /// File path: assets/hours/hour_18.5.svg
+  String get hour185 => 'assets/hours/hour_18.5.svg';
+
+  /// File path: assets/hours/hour_19.0.svg
+  String get hour190 => 'assets/hours/hour_19.0.svg';
+
+  /// File path: assets/hours/hour_19.5.svg
+  String get hour195 => 'assets/hours/hour_19.5.svg';
+
+  /// File path: assets/hours/hour_2.0.svg
+  String get hour20 => 'assets/hours/hour_2.0.svg';
+
+  /// File path: assets/hours/hour_2.5.svg
+  String get hour25 => 'assets/hours/hour_2.5.svg';
+
+  /// File path: assets/hours/hour_20.0.svg
+  String get hour200 => 'assets/hours/hour_20.0.svg';
+
+  /// File path: assets/hours/hour_20.5.svg
+  String get hour205 => 'assets/hours/hour_20.5.svg';
+
+  /// File path: assets/hours/hour_21.0.svg
+  String get hour210 => 'assets/hours/hour_21.0.svg';
+
+  /// File path: assets/hours/hour_21.5.svg
+  String get hour215 => 'assets/hours/hour_21.5.svg';
+
+  /// File path: assets/hours/hour_22.0.svg
+  String get hour220 => 'assets/hours/hour_22.0.svg';
+
+  /// File path: assets/hours/hour_22.5.svg
+  String get hour225 => 'assets/hours/hour_22.5.svg';
+
+  /// File path: assets/hours/hour_23.0.svg
+  String get hour230 => 'assets/hours/hour_23.0.svg';
+
+  /// File path: assets/hours/hour_23.5.svg
+  String get hour235 => 'assets/hours/hour_23.5.svg';
+
+  /// File path: assets/hours/hour_24.0.svg
+  String get hour240 => 'assets/hours/hour_24.0.svg';
+
+  /// File path: assets/hours/hour_3.0.svg
+  String get hour30 => 'assets/hours/hour_3.0.svg';
+
+  /// File path: assets/hours/hour_3.5.svg
+  String get hour35 => 'assets/hours/hour_3.5.svg';
+
+  /// File path: assets/hours/hour_4.0.svg
+  String get hour40 => 'assets/hours/hour_4.0.svg';
+
+  /// File path: assets/hours/hour_4.5.svg
+  String get hour45 => 'assets/hours/hour_4.5.svg';
+
+  /// File path: assets/hours/hour_5.0.svg
+  String get hour50 => 'assets/hours/hour_5.0.svg';
+
+  /// File path: assets/hours/hour_5.5.svg
+  String get hour55 => 'assets/hours/hour_5.5.svg';
+
+  /// File path: assets/hours/hour_6.0.svg
+  String get hour60 => 'assets/hours/hour_6.0.svg';
+
+  /// File path: assets/hours/hour_6.5.svg
+  String get hour65 => 'assets/hours/hour_6.5.svg';
+
+  /// File path: assets/hours/hour_7.0.svg
+  String get hour70 => 'assets/hours/hour_7.0.svg';
+
+  /// File path: assets/hours/hour_7.5.svg
+  String get hour75 => 'assets/hours/hour_7.5.svg';
+
+  /// File path: assets/hours/hour_8.0.svg
+  String get hour80 => 'assets/hours/hour_8.0.svg';
+
+  /// File path: assets/hours/hour_8.5.svg
+  String get hour85 => 'assets/hours/hour_8.5.svg';
+
+  /// File path: assets/hours/hour_9.0.svg
+  String get hour90 => 'assets/hours/hour_9.0.svg';
+
+  /// File path: assets/hours/hour_9.5.svg
+  String get hour95 => 'assets/hours/hour_9.5.svg';
+
+  /// File path: assets/hours/hour_full.svg
+  String get hourFull => 'assets/hours/hour_full.svg';
+
+  /// List of all assets
+  List<String> get values => [
+    hour05,
+    hour0,
+    hour10,
+    hour15,
+    hour100,
+    hour105,
+    hour110,
+    hour115,
+    hour120,
+    hour125,
+    hour130,
+    hour135,
+    hour140,
+    hour145,
+    hour150,
+    hour155,
+    hour160,
+    hour165,
+    hour170,
+    hour175,
+    hour180,
+    hour185,
+    hour190,
+    hour195,
+    hour20,
+    hour25,
+    hour200,
+    hour205,
+    hour210,
+    hour215,
+    hour220,
+    hour225,
+    hour230,
+    hour235,
+    hour240,
+    hour30,
+    hour35,
+    hour40,
+    hour45,
+    hour50,
+    hour55,
+    hour60,
+    hour65,
+    hour70,
+    hour75,
+    hour80,
+    hour85,
+    hour90,
+    hour95,
+    hourFull,
+  ];
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
@@ -217,6 +425,7 @@ class $AssetsImagesGen {
 class Assets {
   const Assets._();
 
+  static const $AssetsHoursGen hours = $AssetsHoursGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 
