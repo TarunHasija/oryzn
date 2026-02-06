@@ -12,6 +12,9 @@ class HomeState {
   final int todayDayOfMonth; // 1-31
   final int totalDaysInMonth; // 28-31
 
+  //core
+  final bool is24HourFormat;
+
   const HomeState({
     this.selectedTab = HomeTab.year,
     this.todayDayOfYear = 0,
@@ -19,6 +22,7 @@ class HomeState {
     this.currentMonth = 1,
     this.todayDayOfMonth = 1,
     this.totalDaysInMonth = 31,
+    this.is24HourFormat = false,
   });
 
   HomeState copyWith({
@@ -28,6 +32,7 @@ class HomeState {
     int? currentMonth,
     int? todayDayOfMonth,
     int? totalDaysInMonth,
+    bool? is24HourFormat,
   }) {
     return HomeState(
       selectedTab: selectedTab ?? this.selectedTab,
@@ -36,6 +41,7 @@ class HomeState {
       currentMonth: currentMonth ?? this.currentMonth,
       todayDayOfMonth: todayDayOfMonth ?? this.todayDayOfMonth,
       totalDaysInMonth: totalDaysInMonth ?? this.totalDaysInMonth,
+      is24HourFormat: is24HourFormat ?? this.is24HourFormat,
     );
   }
 }

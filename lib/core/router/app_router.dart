@@ -5,6 +5,7 @@ import 'package:oryzn/core/router/app_routes.dart';
 import 'package:oryzn/features/auth/presentation/login_view.dart';
 import 'package:oryzn/features/auth/presentation/splash_view.dart';
 import 'package:oryzn/features/home/presentation/home.dart';
+import 'package:oryzn/test_widget.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
@@ -29,6 +30,11 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: AppRoutes.home,
         name: 'home',
         builder: (context, state) => const Home(),
+      ),
+      GoRoute(
+        path: AppRoutes.splash,
+        name: 'test',
+        builder: (context, state) => const TestWidget(),
       ),
     ],
     errorBuilder: (context, state) => Scaffold(

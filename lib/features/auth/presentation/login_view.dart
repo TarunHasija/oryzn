@@ -22,7 +22,10 @@ class LoginView extends ConsumerWidget {
     final emailController = TextEditingController();
 
     ref.listen(authProvider, (previous, next) {
-      log('Auth state changed: isAuthenticated=${next.isAuthenticated}, isLoading=${next.isLoading}, userId=${next.userId}', name: 'LoginView');
+      log(
+        'Auth state changed: isAuthenticated=${next.isAuthenticated}, isLoading=${next.isLoading}, userId=${next.userId}',
+        name: 'LoginView',
+      );
       if (next.isAuthenticated && !next.isLoading) {
         log('Navigating to home...', name: 'LoginView');
         context.go(AppRoutes.home);

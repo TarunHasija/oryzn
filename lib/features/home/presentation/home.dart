@@ -55,7 +55,7 @@ class _HomeState extends ConsumerState<Home> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 24, bottom: 32),
+            padding: const EdgeInsets.only(top: 24, bottom: 8),
             child: Row(
               spacing: 16,
               mainAxisAlignment: MainAxisAlignment.center,

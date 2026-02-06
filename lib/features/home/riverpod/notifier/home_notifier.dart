@@ -8,25 +8,23 @@ class HomeNotifier extends StateNotifier<HomeState> {
   }
 
   void _initialize() {
-    final now = DateTime.now();
-    final year = now.year;
-    final month = now.month;
     state = state.copyWith(
       /// [Year data]
-
-      // Total Days in year
-      totalDaysInYear: TimeUtils.daysInYear(year),
-      // Todays day
-      todayDayOfYear: TimeUtils.dayOfYear(now),
+      totalDaysInYear: TimeUtils.daysInYear(DateTime.now().year),
+      todayDayOfYear: TimeUtils.dayOfYear(),
 
       /// [Month data]
-      currentMonth: month,
-      totalDaysInMonth: TimeUtils.daysInMonth(year, month),
-      todayDayOfMonth: TimeUtils.dayOfMonth(now),
+      currentMonth: DateTime.now().month,
+      totalDaysInMonth: TimeUtils.daysInMonth(),
+      todayDayOfMonth: TimeUtils.dayOfMonth(),
     );
   }
 
   void selectTab(HomeTab index) {
     state = state.copyWith(selectedTab: index);
+  }
+
+  void toggleHourFormat() {
+    state = state.copyWith(is24HourFormat: !state.is24HourFormat);
   }
 }

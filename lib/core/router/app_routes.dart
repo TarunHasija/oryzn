@@ -2,6 +2,7 @@
 class AppRoutes {
   AppRoutes._();
   static const String splash = '/splash';
+  static const String test = '/test';
 
   // Auth routes
   static const String login = '/login';
