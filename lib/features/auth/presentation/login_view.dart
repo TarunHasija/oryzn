@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oryzn/core/router/app_routes.dart';
-import 'package:oryzn/core/theme/theme_provider.dart';
 import 'package:oryzn/extensions/extensions.dart';
 import 'package:oryzn/features/auth/riverpod/provider/auth_provider.dart';
 
