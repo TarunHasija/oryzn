@@ -1,9 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oryzn/core/router/app_routes.dart';
@@ -14,21 +11,34 @@ import 'package:oryzn/features/auth/riverpod/provider/auth_provider.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../../gen/assets.gen.dart';
 
-class LoginView extends ConsumerWidget {
+class LoginView extends ConsumerStatefulWidget {
   const LoginView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final emailController = TextEditingController();
+  ConsumerState<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends ConsumerState<LoginView> {
+  final emailController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isLoading = ref.watch(authProvider.select((s) => s.isLoading));
 
     ref.listen(authProvider, (previous, next) {
-      log(
-        'Auth state changed: isAuthenticated=${next.isAuthenticated}, isLoading=${next.isLoading}, userId=${next.userId}',
-        name: 'LoginView',
-      );
       if (next.isAuthenticated && !next.isLoading) {
-        log('Navigating to home...', name: 'LoginView');
         context.go(AppRoutes.home);
+      }
+      if (next.errorMessage != null && next.errorMessage != previous?.errorMessage) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(next.errorMessage!)),
+        );
       }
     });
     return Scaffold(
@@ -38,47 +48,8 @@ class LoginView extends ConsumerWidget {
         },
       ),
       backgroundColor: ref.colors.surfacePrimary,
-      body: Stack(
-        children: [
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                maxHeight: MediaQuery.sizeOf(context).height,
-              ),
-              child: SvgPicture.asset(
-                fit: BoxFit.cover,
-                Assets.images.dotBg,
-                colorFilter: ColorFilter.mode(
-                  ref.colors.surfacePrimaryInvert,
-                  BlendMode.srcIn,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: -60,
-            left: 0,
-            right: 0,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                maxHeight: MediaQuery.sizeOf(context).height,
-              ),
-              child: ShaderMask(
-                shaderCallback: (Rect bounds) {
-                  return ref.colors.splashSvgGradient.createShader(bounds);
-                },
-                blendMode: BlendMode.srcIn,
-                child: SvgPicture.asset(
-                  fit: BoxFit.cover,
-                  Assets.images.splashShapes,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
+      body: AuthBackground(
+        child: Positioned(
             top: 150,
             left: 0,
             right: 0,
@@ -180,64 +151,72 @@ class LoginView extends ConsumerWidget {
                       ],
                     ),
                   ),
-                  Row(
-                    spacing: 32,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Bounceable(
-                        onTap: () {
-                          ref.read(authProvider.notifier).signInWithGoogle();
-                        },
-                        child: Column(
-                          children: [
-                            CustomIcon(
-                              borderRadius: 16,
-                              backgroundColor: ref.colors.surfaceSecondary,
-                              asset: Assets.images.googleIcon,
-                              size: 40,
-                              padding: 12,
-                            ),
-                            Gap(8),
-                            Text(
-                              "Google",
-                              style: context.labelLarge.copyWith(
-                                color: ref.colors.textIconSecondaryVariant,
-                              ),
-                            ),
-                          ],
-                        ),
+                  if (isLoading)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: CircularProgressIndicator(
+                        color: ref.colors.textIconPrimary,
                       ),
-                      Bounceable(
-                        onTap: () {
-                          ref.read(authProvider.notifier).signInAnonymously();
-                        },
-                        child: Column(
-                          children: [
-                            CustomIcon(
-                              borderRadius: 16,
-                              backgroundColor: ref.colors.surfaceSecondary,
-                              icon: Icons.person_2_outlined,
-                              size: 40,
-                              padding: 12,
-                            ),
-                            Gap(8),
-                            Text(
-                              "Guest",
-                              style: context.labelLarge.copyWith(
-                                color: ref.colors.textIconSecondaryVariant,
+                    )
+                  else
+                    Row(
+                      spacing: 32,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Bounceable(
+                          onTap: () {
+                            ref.read(authProvider.notifier).signInWithGoogle();
+                          },
+                          child: Column(
+                            children: [
+                              CustomIcon(
+                                borderRadius: 16,
+                                backgroundColor: ref.colors.surfaceSecondary,
+                                asset: Assets.images.googleIcon,
+                                size: 40,
+                                padding: 12,
                               ),
-                            ),
-                          ],
+                              Gap(8),
+                              Text(
+                                "Google",
+                                style: context.labelLarge.copyWith(
+                                  color: ref.colors.textIconSecondaryVariant,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                        Bounceable(
+                          onTap: () {
+                            ref.read(authProvider.notifier).signInAnonymously();
+                          },
+                          child: Column(
+                            children: [
+                              CustomIcon(
+                                borderRadius: 16,
+                                backgroundColor: ref.colors.surfaceSecondary,
+                                icon: Icons.person_2_outlined,
+                                size: 40,
+                                padding: 12,
+                              ),
+                              Gap(8),
+                              Text(
+                                "Guest",
+                                style: context.labelLarge.copyWith(
+                                  color: ref.colors.textIconSecondaryVariant,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                 ],
               ),
             ),
           ),
-        ],
       ),
     );
   }
 }
+

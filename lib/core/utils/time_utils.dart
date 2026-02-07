@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:oryzn/core/constants/app_assets.dart';
 import 'package:oryzn/extensions/color_extension.dart';
 
-/// Enum for visual date showing
 enum DayState { past, today, future }
 
 class TimeUtils {
-  /// Leap year check
+  // ──────────────────────────────────────────
+  // Year
+  // ──────────────────────────────────────────
+
   static bool isLeapYear(int year) {
     return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
   }
 
-  /// Total days in year
   static int daysInYear(int year) {
     return isLeapYear(year) ? 366 : 365;
+  }
+
+  static int dayOfYear() {
+    final now = DateTime.now();
+    final start = DateTime(now.year, 1, 1);
+    return now.difference(start).inDays + 1;
   }
 
   static int getDaysLeftInYear() {
@@ -30,20 +37,15 @@ class TimeUtils {
     return lastDayOfYear.difference(now).inDays * 100 ~/ totalDays;
   }
 
-  /// Day of year (1–365/366)
-  static int dayOfYear() {
-    final now = DateTime.now();
-    final start = DateTime(now.year, 1, 1);
-    return now.difference(start).inDays + 1;
-  }
+  // ──────────────────────────────────────────
+  // Month
+  // ──────────────────────────────────────────
 
-  /// Days in month 28-31
   static int daysInMonth() {
     final now = DateTime.now();
     return DateTime(now.year, now.month + 1, 0).day;
   }
 
-  /// get day of month
   static int dayOfMonth() {
     return DateTime.now().day;
   }
@@ -61,8 +63,22 @@ class TimeUtils {
     return lastDayOfMonth.difference(now).inDays * 100 ~/ totalDays;
   }
 
+  // ──────────────────────────────────────────
+  // Day
+  // ──────────────────────────────────────────
+
   static int getHourLeftInDay() {
     return 24 - DateTime.now().hour;
+  }
+
+  static String getCurrentHourLeftInADay() {
+    final now = DateTime.now();
+    final eod = DateTime(now.year, now.month, now.day, 24, 00, 00);
+    final diff = eod.difference(now);
+    final totalMinutes = (diff.inSeconds / 60).ceil();
+    final hours = totalMinutes ~/ 60;
+    final minutes = totalMinutes % 60;
+    return '${hours}h ${minutes.toString().padLeft(2, '0')}m';
   }
 
   static String getHourAsset() {
@@ -77,6 +93,10 @@ class TimeUtils {
       return 'assets/hours/hour_$hour.0.svg';
     }
   }
+
+  // ──────────────────────────────────────────
+  // Day State & Color
+  // ──────────────────────────────────────────
 
   static DayState getDayStateForYear({
     required int index,
@@ -112,10 +132,17 @@ class TimeUtils {
     DayState state,
     BuildContext context,
     WidgetRef ref,
+    int selectedIconColorIndex,
   ) {
     switch (state) {
       case DayState.past:
-        return ref.colors.surfacePrimaryInvert;
+        if (selectedIconColorIndex == 0) return ref.colors.surfacePrimaryInvert;
+        if (selectedIconColorIndex <= AppAssets.subtleColors.length) {
+          return AppAssets.subtleColors[selectedIconColorIndex - 1];
+        }
+        return AppAssets.popColors[selectedIconColorIndex -
+            AppAssets.subtleColors.length -
+            1];
 
       case DayState.today:
         return ref.colors.activeDay;
@@ -123,14 +150,5 @@ class TimeUtils {
       case DayState.future:
         return ref.colors.surfaceTertiary;
     }
-  }
-
-  static String getCurrentHourLeftInADay() {
-    final now = DateTime.now();
-    final eod = DateTime(now.year, now.month, now.day, 23, 59, 59);
-    final diff = eod.difference(now);
-    final hours = diff.inHours;
-    final minutes = diff.inMinutes % 60;
-    return '${hours}h ${minutes.toString().padLeft(2, '0')}m';
   }
 }

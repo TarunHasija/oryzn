@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:oryzn/core/constants/app_colors.dart';
 
 const _regular = FontWeight.w400;
-const _medium = FontWeight.w500;
+// const _medium = FontWeight.w500;
 const _semiBold = FontWeight.w600;
 const _bold = FontWeight.w700;
 

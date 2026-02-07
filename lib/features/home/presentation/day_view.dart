@@ -1,54 +1,35 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:intl/intl.dart';
-import 'package:oryzn/core/constants/app_colors.dart';
 import 'package:oryzn/core/widgets/widgets.dart';
-import 'package:oryzn/extensions/color_extension.dart';
 import 'package:oryzn/gen/assets.gen.dart';
 import '../../../core/utils/utils.dart';
 import '../../../extensions/extensions.dart';
 import '../riverpod/riverpod.dart';
+import '../widgets/widgets.dart';
 
 class DayView extends ConsumerWidget {
   const DayView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    /// [home state]
-    final homeState = ref.watch(homeProvider);
+    final is24HourFormat = ref.watch(
+      homeProvider.select((s) => s.is24HourFormat),
+    );
     final hourAsset = TimeUtils.getHourAsset();
+    final now = DateTime.now();
 
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                DateFormat('EEE, d MMM y').format(DateTime.now()),
-                style: context.bodyMedium,
-              ),
-              homeState.is24HourFormat
-                  ? Text(
-                      DateFormat('HH:mm').format(DateTime.now()).toString(),
-                      style: context.bodyMedium,
-                    )
-                  : Text(
-                      DateFormat('h:mm a').format(DateTime.now()).toString(),
-                      style: context.bodyMedium,
-                    ),
-
-              /// Rotating text showing percentage and days left in the year
-              // RotatingText(
-              //   texts: ['% left', ' days left'],
-              //   style: context.bodyMedium,
-              //   pauseDuration: const Duration(seconds: 6),
-              //   transitionDuration: const Duration(milliseconds: 800),
-              // ),
-            ],
+        TimeViewHeader(
+          trailing: Text(
+            is24HourFormat
+                ? DateFormat('HH:mm').format(now)
+                : DateFormat('h:mm a').format(now),
+            style: context.bodyMedium,
           ),
         ),
         Gap(8),
@@ -57,13 +38,18 @@ class DayView extends ConsumerWidget {
           children: [
             CustomIcon(
               asset: Assets.hours.hourFull,
-              size: 420,
+              size: Platform.isAndroid ? 400 : 420,
               color: ref.colors.surfaceTertiary,
             ),
             CustomIcon(
               asset: hourAsset,
-              size: 420,
-              color: ref.colors.surfacePrimaryInvert,
+              size: Platform.isAndroid ? 400 : 420,
+              color: TimeUtils.getColorForState(
+                DayState.past,
+                context,
+                ref,
+                ref.watch(homeProvider.select((s) => s.selectedIconColor)),
+              ),
             ),
           ],
         ),
@@ -87,6 +73,7 @@ class DayView extends ConsumerWidget {
         Gap(32),
         Container(
           decoration: BoxDecoration(
+            color: ref.colors.surfacePrimary,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: ref.colors.strokeNeutral, width: 1),
           ),

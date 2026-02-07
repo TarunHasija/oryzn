@@ -15,6 +15,12 @@ class HomeState {
   //core
   final bool is24HourFormat;
 
+  //selected Icon index for customize bottomsheet;
+  final int selectedIconIndex;
+  final int selectedIconColor;
+
+  final int selectAvatarIndex;
+
   const HomeState({
     this.selectedTab = HomeTab.year,
     this.todayDayOfYear = 0,
@@ -23,6 +29,9 @@ class HomeState {
     this.todayDayOfMonth = 1,
     this.totalDaysInMonth = 31,
     this.is24HourFormat = false,
+    this.selectedIconIndex = 0,
+    this.selectedIconColor = 0,
+    this.selectAvatarIndex = 0,
   });
 
   HomeState copyWith({
@@ -33,6 +42,9 @@ class HomeState {
     int? todayDayOfMonth,
     int? totalDaysInMonth,
     bool? is24HourFormat,
+    int? selectedIconIndex,
+    int? selectedIconColor,
+    int? selectAvatarIndex,
   }) {
     return HomeState(
       selectedTab: selectedTab ?? this.selectedTab,
@@ -42,6 +54,9 @@ class HomeState {
       todayDayOfMonth: todayDayOfMonth ?? this.todayDayOfMonth,
       totalDaysInMonth: totalDaysInMonth ?? this.totalDaysInMonth,
       is24HourFormat: is24HourFormat ?? this.is24HourFormat,
+      selectedIconIndex: selectedIconIndex ?? this.selectedIconIndex,
+      selectedIconColor: selectedIconColor ?? this.selectedIconColor,
+      selectAvatarIndex: selectAvatarIndex ?? this.selectAvatarIndex,
     );
   }
 }

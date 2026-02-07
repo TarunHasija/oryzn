@@ -4,4 +4,7 @@ class StorageKey {
   static const String theme = 'dark';
   static const String userLoggedIn = 'userLoggedIn';
   static const String userName = 'userName';
+  static const String selectedIconIndex = 'selectedIconIndex';
+  static const String selectedIconColor = 'selectedIconColor';
+  static const String selectedAvatarIndex = 'selectedAvatarIndex';
 }

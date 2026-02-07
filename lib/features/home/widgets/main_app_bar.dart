@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:oryzn/core/theme/theme_provider.dart';
+import 'package:oryzn/core/constants/app_assets.dart';
+import 'package:oryzn/core/services/storage_service.dart';
 import 'package:oryzn/gen/assets.gen.dart';
 
 import '../../../core/widgets/widgets.dart';
 import '../../../extensions/extensions.dart';
+import '../riverpod/provider/provider.dart';
+import 'widgets.dart';
 
 class MainAppBar extends ConsumerWidget {
   const MainAppBar({super.key});
@@ -30,7 +33,7 @@ class MainAppBar extends ConsumerWidget {
                 children: [
                   Text("Hola 👋🏻", style: context.bodyMedium),
                   Text(
-                    "Tarun",
+                    StorageService.getUserName(),
                     style: context.titleLarge.copyWith(fontSize: 18),
                   ),
                 ],
@@ -43,10 +46,20 @@ class MainAppBar extends ConsumerWidget {
             child: CustomIcon.button(
               borderRadius: 100,
               onPressed: () {
-                ref.read(themeProvider.notifier).toggleTheme();
+                showModalBottomSheet(
+                  isDismissible: true,
+                  context: context,
+                  isScrollControlled: true,
+                  backgroundColor: ref.colors.surfaceSecondary,
+                  builder: (context) => const AvatarBottomSheet(),
+                );
               },
               size: 44,
-              asset: Assets.images.avatar16.path,
+              asset: AppAssets
+                  .avatars[ref.watch(
+                    homeProvider.select((s) => s.selectAvatarIndex),
+                  )]
+                  .path,
             ),
           ),
         ],

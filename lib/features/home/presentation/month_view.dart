@@ -1,74 +1,74 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
-import 'package:oryzn/gen/assets.gen.dart';
+import 'package:oryzn/core/constants/app_assets.dart';
 
 import '../../../core/utils/utils.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../../extensions/extensions.dart';
 import '../riverpod/riverpod.dart';
+import '../widgets/widgets.dart';
 
 class MonthView extends ConsumerWidget {
   const MonthView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    /// [home state]
-    final homeState = ref.watch(homeProvider);
+    final totalDaysInMonth = ref.watch(
+      homeProvider.select((s) => s.totalDaysInMonth),
+    );
+    final todayDayOfMonth = ref.watch(
+      homeProvider.select((s) => s.todayDayOfMonth),
+    );
+    final selectedIconIndex = ref.watch(
+      homeProvider.select((s) => s.selectedIconIndex),
+    );
+    final selectedIconColor = ref.watch(
+      homeProvider.select((s) => s.selectedIconColor),
+    );
     final daysLeftInMonth = TimeUtils.getDaysLeftInMonth().toString();
     final percentageLeft = TimeUtils.getPercentageLeftInMonth().toString();
 
-    /// [homeprovider]
-    // final homeNotifier = ref.watch(homeProvider.notifier);
-    return RepaintBoundary(
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  DateFormat('EEE, d MMM y').format(DateTime.now()),
-                  style: context.bodyMedium,
-                ),
-
-                /// Rotating text showing percentage and days left in the year
-                RotatingText(
-                  texts: ['$percentageLeft% left', '$daysLeftInMonth days left'],
-                  style: context.bodyMedium,
-                  pauseDuration: const Duration(seconds: 6),
-                  transitionDuration: const Duration(milliseconds: 800),
-                ),
-              ],
-            ),
+    return Column(
+      children: [
+        TimeViewHeader(
+          trailing: RotatingText(
+            texts: ['$percentageLeft% left', '$daysLeftInMonth days left'],
+            style: context.bodyMedium,
+            pauseDuration: const Duration(seconds: 6),
+            transitionDuration: const Duration(milliseconds: 800),
           ),
-          Expanded(
-            child: GridView.builder(
-              padding: 20.horizontalPadding,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 5,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20,
-              ),
-              itemCount: homeState.totalDaysInMonth,
-              itemBuilder: (context, index) {
-                final state = TimeUtils.getDayStateForMonth(
-                  index: index,
-                  todayDayInMonth: homeState.todayDayOfMonth,
-                );
-
-                return CustomIcon(
-                  size: 12,
-                  asset: Assets.images.icon01,
-                  color: TimeUtils.getColorForState(state, context, ref),
-                );
-              },
+        ),
+        Expanded(
+          child: GridView.builder(
+            padding: 20.horizontalPadding,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 5,
+              crossAxisSpacing: 20,
+              mainAxisSpacing: 20,
             ),
+            itemCount: totalDaysInMonth,
+            itemBuilder: (context, index) {
+              final state = TimeUtils.getDayStateForMonth(
+                index: index,
+                todayDayInMonth: todayDayOfMonth,
+              );
+
+              return Image.asset(
+                AppAssets.displayIcons[selectedIconIndex],
+                width: 12,
+                height: 12,
+                color: TimeUtils.getColorForState(
+                  state,
+                  context,
+                  ref,
+                  selectedIconColor,
+                ),
+                colorBlendMode: BlendMode.srcIn,
+              );
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
-    ;
   }
 }

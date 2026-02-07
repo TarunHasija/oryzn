@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:oryzn/core/services/storage_service.dart';
 import 'package:oryzn/core/utils/utils.dart';
 import 'package:oryzn/features/home/riverpod/state/home_state.dart';
 
@@ -17,6 +18,11 @@ class HomeNotifier extends StateNotifier<HomeState> {
       currentMonth: DateTime.now().month,
       totalDaysInMonth: TimeUtils.daysInMonth(),
       todayDayOfMonth: TimeUtils.dayOfMonth(),
+
+      /// [Persisted preferences]
+      selectedIconIndex: StorageService.getSelectedIconIndex(),
+      selectedIconColor: StorageService.getSelectedIconColor(),
+      selectAvatarIndex: StorageService.getSelectedAvatarIndex(),
     );
   }
 
@@ -26,5 +32,19 @@ class HomeNotifier extends StateNotifier<HomeState> {
 
   void toggleHourFormat() {
     state = state.copyWith(is24HourFormat: !state.is24HourFormat);
+  }
+
+  void selectIcon(int index) {
+    state = state.copyWith(selectedIconIndex: index);
+    StorageService.setSelectedIconIndex(index);
+  }
+
+  void selectIconColor(int index) {
+    state = state.copyWith(selectedIconColor: index);
+    StorageService.setSelectedIconColor(index);
+  }
+  void selectAvatar(int index) {
+    state = state.copyWith(selectAvatarIndex: index);
+    StorageService.setSelectedAvatarIndex(index);
   }
 }
