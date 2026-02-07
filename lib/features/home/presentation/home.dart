@@ -74,7 +74,7 @@ class _HomeState extends ConsumerState<Home> {
                       vertical: 24,
                     ),
                     decoration: BoxDecoration(
-                      color: ref.colors.surfaceSecondary.withOpacity(0.5),
+                      color: ref.colors.surfaceSecondary,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Column(
