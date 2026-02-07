@@ -48,11 +48,20 @@ class StorageService {
   static int getSelectedIconColor() {
     return _storageBox.get(StorageKey.selectedIconColor, defaultValue: 0);
   }
+
   static Future<void> setSelectedAvatarIndex(int index) async {
     await _storageBox.put(StorageKey.selectedAvatarIndex, index);
   }
 
   static int getSelectedAvatarIndex() {
     return _storageBox.get(StorageKey.selectedAvatarIndex, defaultValue: 0);
+  }
+
+  static bool getHasSeenEditHint() {
+    return _storageBox.get(StorageKey.hasSeenEditHint, defaultValue: false);
+  }
+
+  static Future<void> setHasSeenEditHint(bool value) async {
+    await _storageBox.put(StorageKey.hasSeenEditHint, value);
   }
 }

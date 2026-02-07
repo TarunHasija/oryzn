@@ -32,7 +32,10 @@ class MonthView extends ConsumerWidget {
       children: [
         TimeViewHeader(
           trailing: RotatingText(
-            texts: ['$percentageLeft% left', '$daysLeftInMonth days left'],
+            texts: [
+              '$percentageLeft% Month left',
+              '$daysLeftInMonth days left',
+            ],
             style: context.bodyMedium,
             pauseDuration: const Duration(seconds: 6),
             transitionDuration: const Duration(milliseconds: 800),

@@ -32,7 +32,7 @@ class YearView extends ConsumerWidget {
       children: [
         TimeViewHeader(
           trailing: RotatingText(
-            texts: ['$percentageLeft% left', '$daysLeftInYear days left'],
+            texts: ['$percentageLeft% Year left', '$daysLeftInYear days left'],
             style: context.bodyMedium,
             pauseDuration: const Duration(seconds: 6),
             transitionDuration: const Duration(milliseconds: 800),

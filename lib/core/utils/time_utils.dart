@@ -81,6 +81,13 @@ class TimeUtils {
     return '${hours}h ${minutes.toString().padLeft(2, '0')}m';
   }
 
+  static int getPercentageLeftInDay() {
+    final now = DateTime.now();
+    final totalSeconds = 24 * 60 * 60;
+    final eod = DateTime(now.year, now.month, now.day, 24, 0, 0);
+    return eod.difference(now).inSeconds * 100 ~/ totalSeconds;
+  }
+
   static String getHourAsset() {
     final now = DateTime.now();
     final hour = now.hour;

@@ -7,4 +7,5 @@ class StorageKey {
   static const String selectedIconIndex = 'selectedIconIndex';
   static const String selectedIconColor = 'selectedIconColor';
   static const String selectedAvatarIndex = 'selectedAvatarIndex';
+  static const String hasSeenEditHint = 'hasSeenEditHint';
 }

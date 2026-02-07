@@ -4,7 +4,6 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oryzn/core/router/app_routes.dart';
 import 'package:oryzn/core/services/storage_service.dart';
-import 'package:oryzn/core/theme/theme_provider.dart';
 import 'package:oryzn/extensions/extensions.dart';
 
 import '../../../core/widgets/widgets.dart';
@@ -40,11 +39,6 @@ class _SplashViewState extends ConsumerState<SplashView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          ref.read(themeProvider.notifier).toggleTheme();
-        },
-      ),
       backgroundColor: ref.colors.surfacePrimary,
       body: AuthBackground(
         child: Positioned(

@@ -21,15 +21,19 @@ class DayView extends ConsumerWidget {
     );
     final hourAsset = TimeUtils.getHourAsset();
     final now = DateTime.now();
+    final percentageLeft = TimeUtils.getPercentageLeftInDay().toString();
+    final currentTime = is24HourFormat
+        ? DateFormat('HH:mm').format(now)
+        : DateFormat('h:mm a').format(now);
 
     return Column(
       children: [
         TimeViewHeader(
-          trailing: Text(
-            is24HourFormat
-                ? DateFormat('HH:mm').format(now)
-                : DateFormat('h:mm a').format(now),
+          trailing: RotatingText(
+            texts: ['$percentageLeft% Day left', currentTime],
             style: context.bodyMedium,
+            pauseDuration: const Duration(seconds: 6),
+            transitionDuration: const Duration(milliseconds: 800),
           ),
         ),
         Gap(8),

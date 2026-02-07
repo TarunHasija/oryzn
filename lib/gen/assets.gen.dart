@@ -253,6 +253,9 @@ class $AssetsImagesGen {
   /// Directory path: assets/images/icons
   $AssetsImagesIconsGen get icons => const $AssetsImagesIconsGen();
 
+  /// File path: assets/images/longPressIcon.svg
+  String get longPressIcon => 'assets/images/longPressIcon.svg';
+
   /// File path: assets/images/nightLottie.json
   String get nightLottie => 'assets/images/nightLottie.json';
 
@@ -274,6 +277,7 @@ class $AssetsImagesGen {
     foregroundIconPng,
     foregroundIconSvg,
     googleIcon,
+    longPressIcon,
     nightLottie,
     shapes,
     splashShapes,
