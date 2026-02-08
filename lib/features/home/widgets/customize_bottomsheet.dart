@@ -225,7 +225,6 @@ class _ClockFormatSection extends ConsumerWidget {
     return Row(
       children: [
         ChipButton(
-          unselectedBorderRadius: 8,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
           selectedColor: ref.colors.surfaceSecondaryVariant,
           unselectedColor: ref.colors.surfaceSecondary,

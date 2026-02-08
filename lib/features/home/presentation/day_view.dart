@@ -37,25 +37,29 @@ class DayView extends ConsumerWidget {
           ),
         ),
         Gap(8),
-        Stack(
-          alignment: AlignmentGeometry.topCenter,
-          children: [
-            CustomIcon(
-              asset: Assets.hours.hourFull,
-              size: Platform.isAndroid ? 400 : 420,
-              color: ref.colors.surfaceTertiary,
-            ),
-            CustomIcon(
-              asset: hourAsset,
-              size: Platform.isAndroid ? 400 : 420,
-              color: TimeUtils.getColorForState(
-                DayState.past,
-                context,
-                ref,
-                ref.watch(homeProvider.select((s) => s.selectedIconColor)),
-              ),
-            ),
-          ],
+        LayoutBuilder(
+          builder: (context, constraint) {
+            return Stack(
+              alignment: AlignmentGeometry.topCenter,
+              children: [
+                CustomIcon(
+                  asset: Assets.hours.hourFull,
+                  size: constraint.maxWidth * .84,
+                  color: ref.colors.surfaceTertiary,
+                ),
+                CustomIcon(
+                  asset: hourAsset,
+                  size: constraint.maxWidth * .84,
+                  color: TimeUtils.getColorForState(
+                    DayState.past,
+                    context,
+                    ref,
+                    ref.watch(homeProvider.select((s) => s.selectedIconColor)),
+                  ),
+                ),
+              ],
+            );
+          },
         ),
         Gap(32),
         Text(

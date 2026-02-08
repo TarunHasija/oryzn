@@ -133,92 +133,94 @@ class _HomeState extends ConsumerState<Home> {
 
     return Scaffold(
       appBar: AppBar(title: MainAppBar(), actions: []),
-      body: GestureDetector(
-        onLongPress: () {
-          _dismissHint();
-          showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            showDragHandle: true,
-            backgroundColor: ref.colors.surfaceSecondary,
-            shape: RoundedRectangleBorder(
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(16),
+      body: SafeArea(
+        child: GestureDetector(
+          onLongPress: () {
+            _dismissHint();
+            showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              showDragHandle: true,
+              backgroundColor: ref.colors.surfaceSecondary,
+              shape: RoundedRectangleBorder(
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(16),
+                ),
+                side: BorderSide(color: ref.colors.strokeNeutral),
               ),
-              side: BorderSide(color: ref.colors.strokeNeutral),
-            ),
-            builder: (context) {
-              return CustomizeBottomSheet();
-            },
-          );
-        },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 24, bottom: 8),
-              child: Row(
-                spacing: 16,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  /// [Year button]
-                  ChipButton(
-                    text: 'Year',
-                    onTap: () {
-                      homeNotifier.selectTab(HomeTab.year);
-                      _pageController.animateToPage(
-                        0,
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeInOut,
-                      );
-                    },
-                    isSelected: selectedTab == HomeTab.year,
-                  ),
-
-                  /// [Month button]
-                  ChipButton(
-                    text: 'Month',
-                    onTap: () {
-                      homeNotifier.selectTab(HomeTab.month);
-                      _pageController.animateToPage(
-                        1,
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeInOut,
-                      );
-                    },
-                    isSelected: selectedTab == HomeTab.month,
-                  ),
-
-                  /// [Day button]
-                  ChipButton(
-                    text: 'Day',
-                    onTap: () {
-                      homeNotifier.selectTab(HomeTab.day);
-                      _pageController.animateToPage(
-                        2,
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeInOut,
-                      );
-                    },
-                    isSelected: selectedTab == HomeTab.day,
-                  ),
-                ],
+              builder: (context) {
+                return CustomizeBottomSheet();
+              },
+            );
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 24, bottom: 8),
+                child: Row(
+                  spacing: 16,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    /// [Year button]
+                    ChipButton(
+                      text: 'Year',
+                      onTap: () {
+                        homeNotifier.selectTab(HomeTab.year);
+                        _pageController.animateToPage(
+                          0,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                        );
+                      },
+                      isSelected: selectedTab == HomeTab.year,
+                    ),
+        
+                    /// [Month button]
+                    ChipButton(
+                      text: 'Month',
+                      onTap: () {
+                        homeNotifier.selectTab(HomeTab.month);
+                        _pageController.animateToPage(
+                          1,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                        );
+                      },
+                      isSelected: selectedTab == HomeTab.month,
+                    ),
+        
+                    /// [Day button]
+                    ChipButton(
+                      text: 'Day',
+                      onTap: () {
+                        homeNotifier.selectTab(HomeTab.day);
+                        _pageController.animateToPage(
+                          2,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                        );
+                      },
+                      isSelected: selectedTab == HomeTab.day,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              child: PageView(
-                controller: _pageController,
-                onPageChanged: (index) {
-                  homeNotifier.selectTab(HomeTab.values[index]);
-                },
-                children: const [
-                  YearView(key: ValueKey('year')),
-                  MonthView(key: ValueKey('month')),
-                  DayView(key: ValueKey('day')),
-                ],
+              Expanded(
+                child: PageView(
+                  controller: _pageController,
+                  onPageChanged: (index) {
+                    homeNotifier.selectTab(HomeTab.values[index]);
+                  },
+                  children: const [
+                    YearView(key: ValueKey('year')),
+                    MonthView(key: ValueKey('month')),
+                    DayView(key: ValueKey('day')),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
