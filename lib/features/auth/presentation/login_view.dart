@@ -45,12 +45,14 @@ class _LoginViewState extends ConsumerState<LoginView> {
       backgroundColor: ref.colors.surfacePrimary,
       body: AuthBackground(
         child: Positioned(
-          top: 150,
+          top: 0,
+          bottom: 0,
           left: 0,
           right: 0,
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -71,81 +73,82 @@ class _LoginViewState extends ConsumerState<LoginView> {
                     ),
                   ],
                 ),
-                Gap(92),
-                TextFormField(
-                  controller: emailController,
-                  decoration: InputDecoration(
-                    hintText: "Enter your mail",
-                    hintStyle: context.labelLarge.copyWith(
-                      color: ref.colors.textIconSecondary,
-                    ),
-                    contentPadding: EdgeInsets.all(16),
-                    filled: true,
-                    fillColor: ref.colors.surfaceSecondary,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
-                      borderSide: BorderSide(color: ref.colors.strokeNeutral),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
-                      borderSide: BorderSide(
-                        color: ref.colors.strokeNeutralVariant,
-                      ),
-                    ),
-                  ),
-                ),
-                Gap(24),
-                Bounceable(
-                  onTap: () {},
-                  child: Container(
-                    height: 56,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      color: ref.colors.surfacePrimaryInvert,
-                    ),
-                    width: double.infinity,
-                    child: Center(
-                      child: Text(
-                        "Login",
-                        style: context.labelLarge.copyWith(
-                          color: ref.colors.textIconPrimaryInvert,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                // Gap(92),
+                // TextFormField(
+                //   controller: emailController,
+                //   decoration: InputDecoration(
+                //     hintText: "Enter your mail",
+                //     hintStyle: context.labelLarge.copyWith(
+                //       color: ref.colors.textIconSecondary,
+                //     ),
+                //     contentPadding: EdgeInsets.all(16),
+                //     filled: true,
+                //     fillColor: ref.colors.surfaceSecondary,
+                //     enabledBorder: OutlineInputBorder(
+                //       borderRadius: BorderRadius.circular(16),
+                //       borderSide: BorderSide(color: ref.colors.strokeNeutral),
+                //     ),
+                //     focusedBorder: OutlineInputBorder(
+                //       borderRadius: BorderRadius.circular(16),
+                //       borderSide: BorderSide(
+                //         color: ref.colors.strokeNeutralVariant,
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                // Gap(24),
+                // Bounceable(
+                //   onTap: () {},
+                //   child: Container(
+                //     height: 56,
+                //     decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(16),
+                //       color: ref.colors.surfacePrimaryInvert,
+                //     ),
+                //     width: double.infinity,
+                //     child: Center(
+                //       child: Text(
+                //         "Login",
+                //         style: context.labelLarge.copyWith(
+                //           color: ref.colors.textIconPrimaryInvert,
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
 
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 60.0,
-                    vertical: 32,
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          height: 1,
-                          color: ref.colors.textIconSecondaryVariant,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                        child: Text(
-                          "or",
-                          style: context.labelLarge.copyWith(
-                            color: ref.colors.textIconSecondaryVariant,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          height: 1,
-                          color: ref.colors.textIconSecondaryVariant,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(
+                //     horizontal: 60.0,
+                //     vertical: 32,
+                //   ),
+                //   child: Row(
+                //     children: [
+                //       Expanded(
+                //         child: Divider(
+                //           height: 1,
+                //           color: ref.colors.textIconSecondaryVariant,
+                //         ),
+                //       ),
+                //       Padding(
+                //         padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                //         child: Text(
+                //           "or",
+                //           style: context.labelLarge.copyWith(
+                //             color: ref.colors.textIconSecondaryVariant,
+                //           ),
+                //         ),
+                //       ),
+                //       Expanded(
+                //         child: Divider(
+                //           height: 1,
+                //           color: ref.colors.textIconSecondaryVariant,
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                Gap(40),
                 if (isLoading)
                   Padding(
                     padding: const EdgeInsets.only(top: 16),

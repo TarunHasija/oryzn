@@ -27,14 +27,14 @@ class MainAppBar extends ConsumerWidget {
                 color: ref.colors.textIconPrimary,
                 asset: Assets.images.foregroundIconSvg,
               ),
-              Gap(16),
+              Gap(8),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("Hola 👋🏻", style: context.bodyMedium),
                   Text(
                     StorageService.getUserName(),
-                    style: context.titleLarge.copyWith(fontSize: 18),
+                    style: context.titleLarge.copyWith(fontSize: 18,letterSpacing: 0),
                   ),
                 ],
               ),

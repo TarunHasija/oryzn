@@ -91,7 +91,14 @@ class DayView extends ConsumerWidget {
                   CustomIcon(
                     icon: Icons.circle,
                     size: 16,
-                    color: ref.colors.surfacePrimaryInvert,
+                    color: TimeUtils.getColorForState(
+                      DayState.past,
+                      context,
+                      ref,
+                      ref.watch(
+                        homeProvider.select((s) => s.selectedIconColor),
+                      ),
+                    ),
                   ),
                   Gap(4),
                   Text(

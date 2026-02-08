@@ -1,9 +1,33 @@
 import 'dart:developer';
+import 'dart:math' show Random;
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oryzn/core/services/services.dart';
 import 'package:oryzn/features/auth/data/auth_service.dart';
 import 'package:oryzn/features/auth/riverpod/state/auth_state.dart';
+
+const _guestNames = [
+  'Cosmic Panda',
+  'Lunar Fox',
+  'Neon Owl',
+  'Arctic Wolf',
+  'Solar Bear',
+  'Mystic Lynx',
+  'Thunder Hawk',
+  'Crystal Deer',
+  'Shadow Hare',
+  'Storm Falcon',
+  'Ember Tiger',
+  'Frost Raven',
+  'Velvet Otter',
+  'Cobalt Crane',
+  'Amber Koala',
+  'Sage Penguin',
+  'Pixel Badger',
+  'Nova Turtle',
+  'Drift Moose',
+  'Blaze Coyote',
+];
 
 class AuthNotifier extends StateNotifier<AuthState> {
   final AuthService _authService;
@@ -49,7 +73,14 @@ class AuthNotifier extends StateNotifier<AuthState> {
       final user = await _authService.signInAnonymously();
       log(user.toString(), name: "Anonymous user login user: ");
       if (user != null) {
-        state = state.copyWith(isLoading: false, userId: user.uid);
+        final guestName = _guestNames[Random().nextInt(_guestNames.length)];
+        state = state.copyWith(
+          isLoading: false,
+          userId: user.uid,
+          displayName: guestName,
+        );
+        StorageService.setUserLoggedIn(true);
+        StorageService.setUserName(guestName);
       } else {
         state = state.copyWith(isLoading: false);
       }

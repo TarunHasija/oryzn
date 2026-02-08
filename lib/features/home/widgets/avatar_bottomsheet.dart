@@ -60,7 +60,7 @@ class AvatarBottomSheet extends ConsumerWidget {
                                 color: homeState.selectAvatarIndex == index
                                     ? ref.colors.textIconPrimary
                                     : Colors.transparent,
-                                width: 2,
+                                width: 3,
                               ),
                               shape: BoxShape.circle,
                             ),
@@ -71,19 +71,19 @@ class AvatarBottomSheet extends ConsumerWidget {
                               ),
                             ),
                           ),
-                          if (homeState.selectAvatarIndex == index)
-                            Positioned(
-                              right: 8,
-                              bottom: 8,
-                              child: Container(
-                                height: 14,
-                                width: 14,
-                                decoration: BoxDecoration(
-                                  color: ref.colors.textIconPrimary,
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
-                            ),
+                          // if (homeState.selectAvatarIndex == index)
+                          //   Positioned(
+                          //     right: 8,
+                          //     bottom: 8,
+                          //     child: Container(
+                          //       height: 14,
+                          //       width: 14,
+                          //       decoration: BoxDecoration(
+                          //         color: ref.colors.textIconPrimary,
+                          //         shape: BoxShape.circle,
+                          //       ),
+                          //     ),
+                          //   ),
                         ],
                       ),
                     );
