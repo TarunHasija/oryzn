@@ -34,7 +34,10 @@ class MainAppBar extends ConsumerWidget {
                   Text("Hola 👋🏻", style: context.bodyMedium),
                   Text(
                     StorageService.getUserName(),
-                    style: context.titleLarge.copyWith(fontSize: 18,letterSpacing: 0),
+                    style: context.titleLarge.copyWith(
+                      fontSize: 18,
+                      letterSpacing: -1,
+                    ),
                   ),
                 ],
               ),
