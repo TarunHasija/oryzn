@@ -9,5 +9,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await StorageService.init();
+  await WidgetService.init();
   runApp(ProviderScope(child: MyApp()));
 }

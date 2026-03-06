@@ -12,7 +12,5 @@ import SwiftUI
 struct MyHomeWidgetBundle: WidgetBundle {
     var body: some Widget {
         MyHomeWidget()
-        MyHomeWidgetControl()
-        MyHomeWidgetLiveActivity()
     }
 }

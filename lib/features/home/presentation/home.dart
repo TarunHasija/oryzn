@@ -5,12 +5,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oryzn/core/router/app_routes.dart';
 import 'package:oryzn/core/services/storage_service.dart';
+import 'package:oryzn/core/services/widget_service.dart';
 import 'package:oryzn/core/widgets/widgets.dart';
 
 import 'package:oryzn/features/auth/riverpod/provider/auth_provider.dart';
 import 'package:oryzn/features/home/riverpod/provider/home_provider.dart';
 import 'package:oryzn/features/home/riverpod/state/home_state.dart';
 import 'package:oryzn/gen/assets.gen.dart';
+import 'package:oryzn/test_widget.dart';
 
 import '../../../extensions/extensions.dart';
 import '../widgets/widgets.dart';
@@ -32,6 +34,7 @@ class _HomeState extends ConsumerState<Home> {
     super.initState();
     final initialTab = ref.read(homeProvider).selectedTab;
     _pageController = PageController(initialPage: initialTab.index);
+    WidgetService.refreshCountdownWidget();
     _showEditHintIfNeeded();
   }
 
@@ -175,7 +178,7 @@ class _HomeState extends ConsumerState<Home> {
                       },
                       isSelected: selectedTab == HomeTab.year,
                     ),
-        
+
                     /// [Month button]
                     ChipButton(
                       text: 'Month',
@@ -189,7 +192,7 @@ class _HomeState extends ConsumerState<Home> {
                       },
                       isSelected: selectedTab == HomeTab.month,
                     ),
-        
+
                     /// [Day button]
                     ChipButton(
                       text: 'Day',
