@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyABzie_eJYQ1Vy8OO4k7aMVugVrzfYpBoQ',
-    appId: '1:430690791393:android:875c1cf126e69ee79d6ca0',
+    appId: '1:430690791393:android:f4e6dec4769523669d6ca0',
     messagingSenderId: '430690791393',
     projectId: 'oryzn-3c0b7',
     storageBucket: 'oryzn-3c0b7.firebasestorage.app',
@@ -59,10 +59,13 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyA-ZJaZoGgvBCR9J1XMfxpt4s6Zi6vdZjI',
-    appId: '1:430690791393:ios:c06535860ff4d5139d6ca0',
+    appId: '1:430690791393:ios:41e7ce95e62535149d6ca0',
     messagingSenderId: '430690791393',
     projectId: 'oryzn-3c0b7',
     storageBucket: 'oryzn-3c0b7.firebasestorage.app',
-    iosBundleId: 'com.example.oryzn',
+    androidClientId: '430690791393-d23ej7o3jqo4t1pcj4rdcno9i1jth6v8.apps.googleusercontent.com',
+    iosClientId: '430690791393-95e3dsjv507hb7sadg6ii624f66jdvm2.apps.googleusercontent.com',
+    iosBundleId: 'com.oryzn.app',
   );
+
 }

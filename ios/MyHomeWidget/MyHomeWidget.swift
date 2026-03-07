@@ -4,6 +4,35 @@ import WidgetKit
 private let widgetKind = "MyHomeWidget"
 private let appGroupId = "group.homeScreenApp"
 
+// MARK: - Customization knobs
+// Dot colors for past/current/future day states.
+private let colorPast    = Color.white                                    // days already passed
+private let colorCurrent = Color(red: 1.0, green: 0.267, blue: 0.0)      // today  → #FF4400 (activeDay)
+private let colorFuture  = Color(red: 0.267, green: 0.267, blue: 0.267)  // days to come → #444444 (surfaceTertiary dark)
+
+// Grid dimensions. Keep rows * columns >= 366 for leap years.
+private let dotColumns = 36
+private let dotRows    = 11
+
+// Dot diameter in points.
+private let dotDiameter: CGFloat = 7       
+
+// Gap between dots in points (applies to horizontal and vertical spacing).
+private let dotGap: CGFloat = 5            
+
+// Cell size = dotDiameter + dotGap  (computed automatically — do not edit)
+private var dotCell: CGFloat { dotDiameter + dotGap }
+
+// Internal spacing around grid and labels.
+private let dotPaddingH:      CGFloat = 14   // horizontal padding around the dot grid
+private let dotPaddingTop:    CGFloat = 14   // top padding above the dot grid
+private let dotPaddingBottom: CGFloat = 8    // gap between dot grid and text row
+private let textPaddingH:     CGFloat = 18   // horizontal padding around the text row
+private let textPaddingBottom: CGFloat = 14  // bottom padding below the text row
+
+// Bottom row label font size.
+private let textFontSize: CGFloat = 14   // font size for date & days-left labels
+
 struct OryznWidgetEntry: TimelineEntry {
     let date: Date
     let dateText: String
@@ -34,7 +63,7 @@ struct Provider: TimelineProvider {
         let defaults = UserDefaults(suiteName: appGroupId)
         let fallbackDateText = Self.dateFormatter.string(from: date)
         let fallbackDaysLeftText = "\(daysLeftInYear(from: date)) days left"
-
+        // Native fallback is used if Flutter has not pushed shared values yet.
         return OryznWidgetEntry(
             date: date,
             dateText: defaults?.string(forKey: "widget_date_text") ?? fallbackDateText,
@@ -44,11 +73,10 @@ struct Provider: TimelineProvider {
 
     private func daysLeftInYear(from date: Date) -> Int {
         let calendar = Calendar.current
-        let startOfToday = calendar.startOfDay(for: date)
-        let startOfNextYear = calendar.date(
-            from: DateComponents(year: calendar.component(.year, from: date) + 1, month: 1, day: 1)
-        )!
-        return calendar.dateComponents([.day], from: startOfToday, to: startOfNextYear).day ?? 0
+        let dayOfYear = calendar.ordinality(of: .day, in: .year, for: date) ?? 1
+        let daysInYear = calendar.range(of: .day, in: .year, for: date)?.count ?? 365
+        // Excludes today from "days left".
+        return max(daysInYear - dayOfYear, 0)
     }
 
     private func nextMidnight(from date: Date) -> Date {
@@ -70,41 +98,34 @@ struct MyHomeWidgetEntryView: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
+            // ── Background color ── edit Color(red:green:blue:) to change background
             RoundedRectangle(cornerRadius: 28, style: .continuous)
-                .fill(
-                    LinearGradient(
-                        colors: [
-                            Color(red: 0.11, green: 0.11, blue: 0.12),
-                            Color(red: 0.07, green: 0.07, blue: 0.08),
-                        ],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                )
+                .fill(Color(red: 0.07, green: 0.07, blue: 0.08))  // #101012
 
             VStack(spacing: 0) {
-                DotField()
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 82)
-                    .padding(.horizontal, 12)
-                    .padding(.top, 14)
+                // Dot grid — expands to fill all remaining vertical space
+                DotField(date: entry.date)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .padding(.horizontal, dotPaddingH)
+                    .padding(.top, dotPaddingTop)
+                    .padding(.bottom, dotPaddingBottom)
 
-                Spacer(minLength: 0)
-
+                // Bottom text row: date label + days-left label
                 HStack(spacing: 12) {
                     Text(entry.dateText)
                         .lineLimit(1)
-                        .minimumScaleFactor(0.7)
+                        .minimumScaleFactor(0.6)
                         .frame(maxWidth: .infinity, alignment: .leading)
 
                     Text(entry.daysLeftText)
                         .lineLimit(1)
-                        .minimumScaleFactor(0.7)
+                        .minimumScaleFactor(0.6)
                 }
-                .font(.system(size: 16, weight: .regular, design: .monospaced))
+                // ── Text font ── change textFontSize constant above, or swap font name here
+                .font(.custom("Space Mono", size: textFontSize))
                 .foregroundStyle(Color.white.opacity(0.94))
-                .padding(.horizontal, 18)
-                .padding(.bottom, 16)
+                .padding(.horizontal, textPaddingH)
+                .padding(.bottom, textPaddingBottom)
             }
         }
         .containerBackground(.clear, for: .widget)
@@ -112,45 +133,67 @@ struct MyHomeWidgetEntryView: View {
 }
 
 struct DotField: View {
-    private let rows = 9
-    private let columns = 34
+    let date: Date
+
+    // Day-of-year index (1-based)
+    private var dayOfYear: Int {
+        Calendar.current.ordinality(of: .day, in: .year, for: date) ?? 1
+    }
+
+    // Total days in the current year (365 or 366)
+    private var daysInYear: Int {
+        let year = Calendar.current.component(.year, from: date)
+        let isLeap = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)
+        return isLeap ? 366 : 365
+    }
 
     var body: some View {
         GeometryReader { proxy in
-            let width = proxy.size.width
-            let height = proxy.size.height
-            let stepX = width / CGFloat(columns + 1)
-            let stepY = height / CGFloat(rows + 1)
-            let dotSize = max(CGFloat(3), min(stepX, stepY) * 0.56)
+            // Scale factor: fit the fixed-size grid into the available frame uniformly.
+            // The grid's natural size is (dotCell × columns) wide × (dotCell × rows) tall.
+            let naturalW = dotCell * CGFloat(dotColumns)
+            let naturalH = dotCell * CGFloat(dotRows)
+            let scale    = min(proxy.size.width / naturalW, proxy.size.height / naturalH)
+
+            // Scaled cell and dot sizes — grow automatically when the widget is made larger.
+            // To change dot size: edit dotDiameter above.
+            // To change spacing: edit dotGap above.
+            let cellScaled = dotCell     * scale
+            let dotSize    = dotDiameter * scale
+
+            // Offset to centre the grid inside the available space
+            let offsetX = (proxy.size.width  - naturalW * scale) / 2
+            let offsetY = (proxy.size.height - naturalH * scale) / 2
+
+            let dayIndex = dayOfYear - 1  // convert to 0-based
+            let totalDays = daysInYear    // 365 or 366 — only draw this many dots
 
             ZStack {
-                ForEach(0..<rows, id: \.self) { row in
-                    ForEach(0..<columns, id: \.self) { column in
-                        Circle()
-                            .fill(Color.white.opacity(dotOpacity(for: row)))
-                            .frame(width: dotSize, height: dotSize)
-                            .position(
-                                x: stepX * CGFloat(column + 1) + (row.isMultiple(of: 2) ? .zero : stepX * 0.5),
-                                y: stepY * CGFloat(row + 1)
-                            )
-                    }
-                }
+                ForEach(0..<(dotColumns * dotRows), id: \.self) { index in
+                    // Skip slots beyond the last day of the year — leaves them invisible
+                    if index < totalDays {
+                    let row = index / dotColumns
+                    let col = index % dotColumns
+                    // Centre of this cell (grid offset + cell centre)
+                    let cx = offsetX + cellScaled * CGFloat(col) + cellScaled / 2
+                    let cy = offsetY + cellScaled * CGFloat(row) + cellScaled / 2
 
-                LinearGradient(
-                    colors: [
-                        .clear,
-                        Color.black.opacity(0.78),
-                    ],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
+                    // ── Dot color per state ──
+                    // Edit colorPast / colorCurrent / colorFuture constants at top of file.
+                    let color: Color = {
+                        if index < dayIndex  { return colorPast    }  // already passed
+                        if index == dayIndex { return colorCurrent  }  // today
+                        return colorFuture                             // still to come
+                    }()
+
+                    Circle()
+                        .fill(color)
+                        .frame(width: dotSize, height: dotSize)
+                        .position(x: cx, y: cy)
+                    } // end if index < totalDays
+                }
             }
         }
-    }
-
-    private func dotOpacity(for row: Int) -> Double {
-        let progress = Double(row) / Double(max(rows - 1, 1))
-        return max(0.14, 1.0 - (progress * 0.82))
     }
 }
 

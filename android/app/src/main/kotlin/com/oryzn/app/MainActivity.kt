@@ -1,4 +1,4 @@
-package com.example.oryzn
+package com.oryzn.app
 
 import android.os.Build
 import android.util.Log

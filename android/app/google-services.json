@@ -7,12 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:430690791393:android:875c1cf126e69ee79d6ca0",
+        "mobilesdk_app_id": "1:430690791393:android:f4e6dec4769523669d6ca0",
         "android_client_info": {
-          "package_name": "com.example.oryzn"
+          "package_name": "com.oryzn.app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "430690791393-licmi0r0pilj5ao5fsobea59804s0dhj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyABzie_eJYQ1Vy8OO4k7aMVugVrzfYpBoQ"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "430690791393-kd2jlfab8tj1vn1ioqj2bpbru63uf69s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "430690791393-2r0kje2i5c5cn82b3lhedvn7qbbeorv0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.oryzn"
+              }
+            }
+          ]
         }
       }
     }

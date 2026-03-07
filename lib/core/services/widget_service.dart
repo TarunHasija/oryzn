@@ -4,19 +4,24 @@ import 'dart:io';
 import 'package:home_widget/home_widget.dart';
 import 'package:intl/intl.dart';
 
+/// Prepares and pushes data used by the Android/iOS home widgets.
 class WidgetService {
   WidgetService._();
 
-  static const String _androidProviderName = 'OryznHomeWidgetProvider';
+  // Native widget identifiers used by `home_widget` update calls.
+  static const String _androidProviderName = 'Year4x2WidgetProvider';
   static const String _iOSWidgetName = 'MyHomeWidget';
   static const String _iOSAppGroupId = 'group.homeScreenApp';
 
+  // Shared keys read by native widget code.
   static const String keyDateText = 'widget_date_text';
   static const String keyDaysLeftText = 'widget_days_left_text';
 
+  /// Initializes widget bridge and performs an immediate refresh.
   static Future<void> init() async {
     try {
       if (Platform.isIOS) {
+        // iOS widgets read shared values through this app group container.
         await HomeWidget.setAppGroupId(_iOSAppGroupId);
       }
       await refreshCountdownWidget();
@@ -30,13 +35,15 @@ class WidgetService {
     }
   }
 
+  /// Computes display strings and pushes them to platform widgets.
   static Future<void> refreshCountdownWidget() async {
     final now = DateTime.now();
     final dateText = DateFormat('EEEE, d MMMM yyyy').format(now);
 
-    final startOfToday = DateTime(now.year, now.month, now.day);
-    final startOfNextYear = DateTime(now.year + 1, 1, 1);
-    final daysLeft = startOfNextYear.difference(startOfToday).inDays;
+    // "Days left" excludes today: Mar 7, 2026 => 299.
+    final startOfTodayUtc = DateTime.utc(now.year, now.month, now.day);
+    final startOfNextYearUtc = DateTime.utc(now.year + 1, 1, 1);
+    final daysLeft = startOfNextYearUtc.difference(startOfTodayUtc).inDays - 1;
     final daysLeftText = '$daysLeft days left';
 
     try {

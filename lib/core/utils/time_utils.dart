@@ -24,17 +24,18 @@ class TimeUtils {
     return now.difference(start).inDays + 1;
   }
 
-  static int getDaysLeftInYear() {
-    final now = DateTime.now();
-    final lastDayOfYear = DateTime(now.year, 12, 31);
-    return lastDayOfYear.difference(now).inDays;
+  static int getDaysLeftInYear({DateTime? referenceDate}) {
+    final now = referenceDate ?? DateTime.now();
+    final startOfTodayUtc = DateTime.utc(now.year, now.month, now.day);
+    final startOfNextYearUtc = DateTime.utc(now.year + 1, 1, 1);
+    return startOfNextYearUtc.difference(startOfTodayUtc).inDays - 1;
   }
 
-  static int getPercentageLeftInYear() {
-    final now = DateTime.now();
+  static int getPercentageLeftInYear({DateTime? referenceDate}) {
+    final now = referenceDate ?? DateTime.now();
     final totalDays = daysInYear(now.year);
-    final lastDayOfYear = DateTime(now.year, 12, 31);
-    return lastDayOfYear.difference(now).inDays * 100 ~/ totalDays;
+    final daysLeft = getDaysLeftInYear(referenceDate: now);
+    return daysLeft * 100 ~/ totalDays;
   }
 
   // ──────────────────────────────────────────

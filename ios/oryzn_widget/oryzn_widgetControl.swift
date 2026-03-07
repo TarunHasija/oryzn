@@ -10,7 +10,7 @@ import SwiftUI
 import WidgetKit
 
 struct oryzn_widgetControl: ControlWidget {
-    static let kind: String = "com.example.oryzn.oryzn_widget"
+    static let kind: String = "com.oryzn.app.oryzn_widget"
 
     var body: some ControlWidgetConfiguration {
         AppIntentControlConfiguration(
