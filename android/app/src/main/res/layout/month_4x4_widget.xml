@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Entire widget is drawn as a single bitmap on this ImageView.
+  This is required because RemoteViews ignores android:fontFamily for custom fonts.
+  All sizing/padding/colors are controlled in Month4x4WidgetProvider.kt.
+-->
+<ImageView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_canvas"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:contentDescription=""
+    android:scaleType="fitXY" />
