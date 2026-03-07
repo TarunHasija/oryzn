@@ -9,7 +9,12 @@ class WidgetService {
   WidgetService._();
 
   // Native widget identifiers used by `home_widget` update calls.
-  static const String _androidProviderName = 'Year4x2WidgetProvider';
+  static const List<String> _androidProviderNames = [
+    'Year4x2WidgetProvider',
+    'Year3x2WidgetProvider',
+    'Year2x2WidgetProvider',
+    'Year4x4WidgetProvider',
+  ];
   static const String _iOSWidgetName = 'MyHomeWidget';
   static const String _iOSAppGroupId = 'group.homeScreenApp';
 
@@ -51,7 +56,9 @@ class WidgetService {
       await HomeWidget.saveWidgetData<String>(keyDaysLeftText, daysLeftText);
 
       if (Platform.isAndroid) {
-        await HomeWidget.updateWidget(androidName: _androidProviderName);
+        for (final providerName in _androidProviderNames) {
+          await HomeWidget.updateWidget(androidName: providerName);
+        }
       } else if (Platform.isIOS) {
         await HomeWidget.updateWidget(iOSName: _iOSWidgetName);
       }
