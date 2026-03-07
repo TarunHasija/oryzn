@@ -19,6 +19,8 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 import kotlin.math.ceil
+import kotlin.math.roundToInt
+import kotlin.math.sqrt
 
 
 // Dot colors
@@ -38,20 +40,21 @@ private const val CARD_PADDING_DP = 16f
 
 // Dot grid columns
 private const val DOT_COLUMNS = 30
+private const val MIN_DOT_COLUMNS = 20
 
 // Dot diameter in dp  ← change this to make dots bigger / smaller
-private const val DOT_DIAMETER_DP = 7.5f
+private const val DOT_DIAMETER_DP = 10f
 
 // Gap between dots in dp  ← change this to adjust spacing between dots
-private const val DOT_GAP_DP = 3f
+private const val DOT_GAP_DP = 4f
 
 // Text size in sp for the date and days-left labels  ← change font size here
-private const val TEXT_SIZE_SP = 13f
+private const val TEXT_SIZE_SP = 10f
 
 // Gap between dot grid and text row in dp
 private const val TEXT_TOP_GAP_DP = 8f
 
-class Year4x2WidgetProvider : HomeWidgetProvider() {
+class Year3x2WidgetProvider : HomeWidgetProvider() {
 
   override fun onUpdate(
       context: Context,
@@ -60,7 +63,7 @@ class Year4x2WidgetProvider : HomeWidgetProvider() {
       widgetData: SharedPreferences,
   ) {
     appWidgetIds.forEach { widgetId ->
-      val views = RemoteViews(context.packageName, R.layout.year_4x2_widget)
+      val views = RemoteViews(context.packageName, R.layout.year_3x2_widget)
 
       views.setOnClickPendingIntent(
           R.id.widget_canvas,
@@ -148,11 +151,30 @@ class Year4x2WidgetProvider : HomeWidgetProvider() {
     val daysInYear = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_YEAR)
     val dayIndex   = Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1  // 0-based
 
-    // Fixed grid (no responsive column changes).
-    val columns = DOT_COLUMNS
-    val rows    = ceil(daysInYear.toDouble() / columns).toInt().coerceAtLeast(1)
+    // Pick column count that best fills the available grid area with square cells.
+    val aspect = gridW / gridH
+    val approxColumns = sqrt(daysInYear * aspect).roundToInt()
+    val start = (approxColumns - 4).coerceAtLeast(MIN_DOT_COLUMNS)
+    val end = (approxColumns + 4).coerceAtMost(DOT_COLUMNS)
 
-    val cell = minOf(gridW / columns, gridH / rows)
+    var columns = approxColumns.coerceIn(MIN_DOT_COLUMNS, DOT_COLUMNS)
+    var rows = ceil(daysInYear.toDouble() / columns).toInt().coerceAtLeast(1)
+    var bestCell = minOf(gridW / columns, gridH / rows)
+    var bestFillArea = (bestCell * columns) * (bestCell * rows)
+
+    for (candidate in start..end) {
+      val candidateRows = ceil(daysInYear.toDouble() / candidate).toInt().coerceAtLeast(1)
+      val candidateCell = minOf(gridW / candidate, gridH / candidateRows)
+      val candidateFillArea = (candidateCell * candidate) * (candidateCell * candidateRows)
+      if (candidateFillArea > bestFillArea) {
+        bestFillArea = candidateFillArea
+        bestCell = candidateCell
+        columns = candidate
+        rows = candidateRows
+      }
+    }
+
+    val cell = bestCell
     val gridUsedW = cell * columns
     val gridUsedH = cell * rows
     val offsetX = gridLeft + (gridW - gridUsedW) / 2f
