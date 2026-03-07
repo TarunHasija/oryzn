@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.os.Bundle
@@ -20,15 +19,6 @@ import java.util.Calendar
 import java.util.Locale
 import kotlin.math.ceil
 
-
-// Dot colors
-private val COLOR_PAST    = Color.WHITE                  // days already passed
-private val COLOR_CURRENT = Color.parseColor("#FF4400")  // today → activeDay
-private val COLOR_FUTURE  = Color.parseColor("#444444")  // days to come → surfaceTertiary dark
-
-// Widget background color
-private const val COLOR_BACKGROUND = "#1C1C1C"
-private val COLOR_TEXT = Color.parseColor("#F3F3F3")
 
 // Corner radius of the widget card in dp
 private const val CARD_CORNER_DP = 24f
@@ -82,6 +72,15 @@ class Year4x2WidgetProvider : HomeWidgetProvider() {
     }
   }
 
+  override fun onReceive(context: Context, intent: android.content.Intent) {
+    super.onReceive(context, intent)
+    if (intent.action == android.content.Intent.ACTION_CONFIGURATION_CHANGED) {
+      val manager = AppWidgetManager.getInstance(context)
+      val ids = manager.getAppWidgetIds(android.content.ComponentName(context, Year4x2WidgetProvider::class.java))
+      if (ids.isNotEmpty()) onUpdate(context, manager, ids, HomeWidgetPlugin.getData(context))
+    }
+  }
+
   override fun onAppWidgetOptionsChanged(
       context: Context,
       appWidgetManager: AppWidgetManager,
@@ -104,10 +103,11 @@ class Year4x2WidgetProvider : HomeWidgetProvider() {
 
     val pad    = dpToPx(context, CARD_PADDING_DP).toFloat()
     val corner = dpToPx(context, CARD_CORNER_DP).toFloat()
+    val palette = widgetPalette(context)
 
     // ── Background card ──
     val bgPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-      color = Color.parseColor(COLOR_BACKGROUND)
+      color = palette.surfacePrimary
     }
     canvas.drawRoundRect(0f, 0f, widthPx.toFloat(), heightPx.toFloat(), corner, corner, bgPaint)
 
@@ -117,7 +117,7 @@ class Year4x2WidgetProvider : HomeWidgetProvider() {
         ?: Typeface.MONOSPACE
     val textPx = spToPx(context, TEXT_SIZE_SP)
     val textPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-      color = COLOR_TEXT
+      color = palette.textIconPrimary
       this.typeface = typeface
       textSize = textPx
     }
@@ -173,9 +173,9 @@ class Year4x2WidgetProvider : HomeWidgetProvider() {
       val cy  = offsetY + cell * row + cell / 2f
 
       dotPaint.color = when {
-        index < dayIndex  -> COLOR_PAST
-        index == dayIndex -> COLOR_CURRENT
-        else              -> COLOR_FUTURE
+        index < dayIndex  -> palette.textIconPrimary
+        index == dayIndex -> palette.activeDay
+        else              -> palette.surfaceTertiary
       }
       canvas.drawCircle(cx, cy, radius, dotPaint)
     }
