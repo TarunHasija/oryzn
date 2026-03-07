@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Static preview layout for the widget picker only.
+  The actual widget uses a Canvas bitmap (clock_2x2_widget.xml).
+  This layout just needs to look right in the picker — no runtime logic.
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#1C1C1C"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <!-- Day + Month row -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SUN"
+                android:textColor="#FF4400"
+                android:textSize="14sp"
+                android:letterSpacing="0.05" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  MAR"
+                android:textColor="#747373"
+                android:textSize="14sp"
+                android:letterSpacing="0.05" />
+
+        </LinearLayout>
+
+        <!-- Gap -->
+        <View
+            android:layout_width="1dp"
+            android:layout_height="20dp" />
+
+        <!-- Date row -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="08"
+            android:textColor="#FFFFFF"
+            android:textSize="36sp"
+            android:letterSpacing="0.05" />
+
+    </LinearLayout>
+
+</LinearLayout>

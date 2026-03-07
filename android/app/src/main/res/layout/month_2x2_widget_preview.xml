@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Static preview for widget picker only. Actual widget uses Canvas bitmap. -->
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1C1C1C"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MAR"
+            android:textColor="#FFFFFF"
+            android:textSize="11sp"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="vertical" android:gravity="center_vertical">
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="4dp">
+                <ImageView android:layout_width="0dp" android:layout_height="4dp" android:layout_weight="1" android:background="#FFFFFF" android:layout_margin="1dp"/>
+                <ImageView android:layout_width="0dp" android:layout_height="4dp" android:layout_weight="1" android:background="#FFFFFF" android:layout_margin="1dp"/>
+                <ImageView android:layout_width="0dp" android:layout_height="4dp" android:layout_weight="1" android:background="#FFFFFF" android:layout_margin="1dp"/>
+                <ImageView android:layout_width="0dp" android:layout_height="4dp" android:layout_weight="1" android:background="#FFFFFF" android:layout_margin="1dp"/>
+                <ImageView android:layout_width="0dp" android:layout_height="4dp" android:layout_weight="1" android:background="#FFFFFF" android:layout_margin="1dp"/>
+                <ImageView android:layout_width="0dp" android:layout_height="4dp" android:layout_weight="1" android:background="#FFFFFF" android:layout_margin="1dp"/>
+                <ImageView android:layout_width="0dp" android:layout_height="4dp" android:layout_weight="1" android:background="#FF4400" android:layout_margin="1dp"/>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="4dp">
+                <ImageView android:layout_width="0dp" android:layout_height="4dp" android:layout_weight="1" android:background="#444444" android:layout_margin="1dp"/>
+                <ImageView android:layout_width="0dp" android:layout_height="4dp" android:layout_weight="1" android:background="#444444" android:layout_margin="1dp"/>
+                <ImageView android:layout_width="0dp" android:layout_height="4dp" android:layout_weight="1" android:background="#444444" android:layout_margin="1dp"/>
+                <ImageView android:layout_width="0dp" android:layout_height="4dp" android:layout_weight="1" android:background="#444444" android:layout_margin="1dp"/>
+                <ImageView android:layout_width="0dp" android:layout_height="4dp" android:layout_weight="1" android:background="#444444" android:layout_margin="1dp"/>
+                <ImageView android:layout_width="0dp" android:layout_height="4dp" android:layout_weight="1" android:background="#444444" android:layout_margin="1dp"/>
+                <ImageView android:layout_width="0dp" android:layout_height="4dp" android:layout_weight="1" android:background="#444444" android:layout_margin="1dp"/>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                <ImageView android:layout_width="0dp" android:layout_height="4dp" android:layout_weight="1" android:background="#444444" android:layout_margin="1dp"/>
+                <ImageView android:layout_width="0dp" android:layout_height="4dp" android:layout_weight="1" android:background="#444444" android:layout_margin="1dp"/>
+                <ImageView android:layout_width="0dp" android:layout_height="4dp" android:layout_weight="1" android:background="#444444" android:layout_margin="1dp"/>
+                <ImageView android:layout_width="0dp" android:layout_height="4dp" android:layout_weight="1" android:background="#444444" android:layout_margin="1dp"/>
+                <ImageView android:layout_width="0dp" android:layout_height="4dp" android:layout_weight="1" android:background="#444444" android:layout_margin="1dp"/>
+                <ImageView android:layout_width="0dp" android:layout_height="4dp" android:layout_weight="1" android:background="#444444" android:layout_margin="1dp"/>
+                <ImageView android:layout_width="0dp" android:layout_height="4dp" android:layout_weight="1" android:background="#444444" android:layout_margin="1dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
