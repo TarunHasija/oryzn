@@ -11,6 +11,8 @@ import SwiftUI
 @main
 struct MyHomeWidgetBundle: WidgetBundle {
     var body: some Widget {
-        MyHomeWidget()
+        YearWidget()
+        MonthWidget()
+        ClockWidget()
     }
 }
