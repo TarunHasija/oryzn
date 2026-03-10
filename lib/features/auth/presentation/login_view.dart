@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -5,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oryzn/core/router/app_routes.dart';
 import 'package:oryzn/extensions/extensions.dart';
+import 'package:oryzn/features/auth/presentation/pdf_viewer_screen.dart';
 import 'package:oryzn/features/auth/riverpod/provider/auth_provider.dart';
 
 import '../../../core/widgets/widgets.dart';
@@ -52,8 +54,10 @@ class _LoginViewState extends ConsumerState<LoginView> {
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
               children: [
+                const Spacer(),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -209,6 +213,60 @@ class _LoginViewState extends ConsumerState<LoginView> {
                       ),
                     ],
                   ),
+                const Spacer(),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 32),
+                  child: Text.rich(
+                    TextSpan(
+                      style: context.bodySmall.copyWith(
+                        color: ref.colors.textIconPrimary,
+                      ),
+                      children: [
+                        const TextSpan(text: 'By continuing, I accept the '),
+                        TextSpan(
+                          text: 'Terms & Conditions',
+                          style: context.bodySmall.copyWith(
+                            color: ref.colors.textIconPrimary,
+                            decoration: TextDecoration.underline,
+                            fontWeight: FontWeight.bold,
+                            decorationColor: ref.colors.textIconPrimary,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) => const PdfViewerScreen(
+                                      assetPath:
+                                          'assets/licenses/Oryzn_Terms_and_Conditions.pdf',
+                                      title: 'Terms & Conditions',
+                                    ),
+                                  ),
+                                ),
+                        ),
+                        const TextSpan(text: ' and '),
+                        TextSpan(
+                          text: 'Privacy Policy',
+                          style: context.bodySmall.copyWith(
+                            color: ref.colors.textIconPrimary,
+                            decoration: TextDecoration.underline,
+                            decorationColor: ref.colors.textIconPrimary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) => const PdfViewerScreen(
+                                      assetPath:
+                                          'assets/licenses/Oryzn_Privacy_Policies.pdf',
+                                      title: 'Privacy Policy',
+                                    ),
+                                  ),
+                                ),
+                        ),
+                      ],
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               ],
             ),
           ),

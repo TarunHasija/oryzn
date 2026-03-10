@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:oryzn/core/constants/app_assets.dart';
+import 'package:oryzn/core/router/app_routes.dart';
 import 'package:oryzn/core/theme/theme_provider.dart';
+import 'package:oryzn/features/auth/riverpod/provider/auth_provider.dart';
 import 'package:oryzn/gen/assets.gen.dart';
 
 import '../../../extensions/extensions.dart';
@@ -96,6 +99,42 @@ class AvatarBottomSheet extends ConsumerWidget {
                 child: _ThemeToggle(
                   onToggle: () =>
                       ref.read(themeProvider.notifier).toggleTheme(),
+                ),
+              ),
+              Gap(12),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 24),
+                child: GestureDetector(
+                  onTap: () async {
+                    Navigator.of(context).pop();
+                    await ref.read(authProvider.notifier).signOut();
+                    if (context.mounted) context.go(AppRoutes.login);
+                  },
+                  child: Container(
+                    height: 58,
+                    padding: EdgeInsets.symmetric(horizontal: 12),
+                    decoration: BoxDecoration(
+                      color: ref.colors.surfacePrimary,
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.logout_rounded,
+                          color: ref.colors.textIconPrimary,
+                          size: 20,
+                        ),
+                        Gap(8),
+                        Text(
+                          'Log out',
+                          style: context.labelLarge.copyWith(
+                            color: ref.colors.textIconPrimary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
               Gap(16),
