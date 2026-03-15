@@ -4,7 +4,10 @@ import 'package:oryzn/core/utils/utils.dart';
 import 'package:oryzn/features/home/riverpod/state/home_state.dart';
 
 class HomeNotifier extends StateNotifier<HomeState> {
-  HomeNotifier() : super(const HomeState()) {
+  HomeNotifier()
+    : super(
+        HomeState(showBottomEditHint: StorageService.getHasSeenEditHint()),
+      ) {
     _initialize();
   }
 
@@ -22,6 +25,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
       /// [Persisted preferences]
       selectedIconIndex: StorageService.getSelectedIconIndex(),
       selectedIconColor: StorageService.getSelectedIconColor(),
+      selectedActiveColorIndex: StorageService.getSelectedActiveColorIndex(),
       selectAvatarIndex: StorageService.getSelectedAvatarIndex(),
     );
   }
@@ -43,8 +47,20 @@ class HomeNotifier extends StateNotifier<HomeState> {
     state = state.copyWith(selectedIconColor: index);
     StorageService.setSelectedIconColor(index);
   }
+
+  void selectActiveColorIndex(int index) {
+    state = state.copyWith(selectedActiveColorIndex: index);
+    StorageService.setSelectedActiveColorIndex(index);
+  }
+
   void selectAvatar(int index) {
     state = state.copyWith(selectAvatarIndex: index);
     StorageService.setSelectedAvatarIndex(index);
+  }
+
+  void setBottomEditHint(bool value) {
+    StorageService.setHasSeenEditHint(value);
+
+    state = state.copyWith(showBottomEditHint: value);
   }
 }

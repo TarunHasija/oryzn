@@ -18,8 +18,11 @@ class HomeState {
   //selected Icon index for customize bottomsheet;
   final int selectedIconIndex;
   final int selectedIconColor;
+  final int selectedActiveColorIndex;
 
   final int selectAvatarIndex;
+
+  final bool showBottomEditHint;
 
   const HomeState({
     this.selectedTab = HomeTab.year,
@@ -31,7 +34,9 @@ class HomeState {
     this.is24HourFormat = false,
     this.selectedIconIndex = 0,
     this.selectedIconColor = 0,
+    this.selectedActiveColorIndex = 0,
     this.selectAvatarIndex = 0,
+    this.showBottomEditHint = false,
   });
 
   HomeState copyWith({
@@ -44,7 +49,9 @@ class HomeState {
     bool? is24HourFormat,
     int? selectedIconIndex,
     int? selectedIconColor,
+    int? selectedActiveColorIndex,
     int? selectAvatarIndex,
+    bool? showBottomEditHint,
   }) {
     return HomeState(
       selectedTab: selectedTab ?? this.selectedTab,
@@ -56,7 +63,9 @@ class HomeState {
       is24HourFormat: is24HourFormat ?? this.is24HourFormat,
       selectedIconIndex: selectedIconIndex ?? this.selectedIconIndex,
       selectedIconColor: selectedIconColor ?? this.selectedIconColor,
+      selectedActiveColorIndex: selectedActiveColorIndex ?? this.selectedActiveColorIndex,
       selectAvatarIndex: selectAvatarIndex ?? this.selectAvatarIndex,
+      showBottomEditHint: showBottomEditHint ?? this.showBottomEditHint,
     );
   }
 }

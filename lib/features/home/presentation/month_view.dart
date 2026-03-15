@@ -25,6 +25,9 @@ class MonthView extends ConsumerWidget {
     final selectedIconColor = ref.watch(
       homeProvider.select((s) => s.selectedIconColor),
     );
+    final selectedActiveColorIndex = ref.watch(
+      homeProvider.select((s) => s.selectedActiveColorIndex),
+    );
     final daysLeftInMonth = TimeUtils.getDaysLeftInMonth().toString();
     final percentageLeft = TimeUtils.getPercentageLeftInMonth().toString();
 
@@ -65,6 +68,7 @@ class MonthView extends ConsumerWidget {
                   context,
                   ref,
                   selectedIconColor,
+                  selectedActiveColorIndex,
                 ),
                 colorBlendMode: BlendMode.srcIn,
               );

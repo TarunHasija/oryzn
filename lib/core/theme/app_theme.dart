@@ -21,6 +21,13 @@ class AppTheme {
       ),
       textTheme: buildTextTheme(colors),
       iconTheme: IconThemeData(color: colors.textIconPrimary),
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: colors.surfacePrimary,
+        shape: RoundedRectangleBorder(
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+          side: BorderSide(color: colors.strokeNeutral),
+        ),
+      ),
     );
   }
 }

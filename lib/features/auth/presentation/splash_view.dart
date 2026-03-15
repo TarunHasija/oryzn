@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oryzn/core/router/app_routes.dart';
-import 'package:oryzn/core/services/storage_service.dart';
 import 'package:oryzn/extensions/extensions.dart';
 
 import '../../../core/widgets/widgets.dart';
@@ -26,14 +25,7 @@ class _SplashViewState extends ConsumerState<SplashView> {
   Future<void> _checkAuthAndNavigate() async {
     await Future.delayed(const Duration(seconds: 2));
     if (!mounted) return;
-
-    // Check local storage - works offline
-    final isLoggedIn = StorageService.getUserLoggedIn();
-    if (isLoggedIn) {
-      context.go(AppRoutes.home);
-    } else {
-      context.go(AppRoutes.login);
-    }
+    context.go(AppRoutes.home);
   }
 
   @override

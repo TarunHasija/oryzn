@@ -43,17 +43,17 @@ class MainAppBar extends ConsumerWidget {
               ),
             ],
           ),
-          Container(
+          ClipRRect(
             clipBehavior: Clip.hardEdge,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(100)),
+            borderRadius: BorderRadius.circular(100),
             child: CustomIcon.button(
               borderRadius: 100,
               onPressed: () {
                 showModalBottomSheet(
                   isDismissible: true,
                   context: context,
+                  backgroundColor: ref.colors.surfacePrimary,
                   isScrollControlled: true,
-                  backgroundColor: ref.colors.surfaceSecondary,
                   builder: (context) => const AvatarBottomSheet(),
                 );
               },

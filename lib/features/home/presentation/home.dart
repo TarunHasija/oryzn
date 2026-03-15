@@ -1,18 +1,13 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:oryzn/core/router/app_routes.dart';
+import 'package:gap/gap.dart';
 import 'package:oryzn/core/services/storage_service.dart';
 import 'package:oryzn/core/services/widget_service.dart';
-import 'package:oryzn/core/widgets/widgets.dart';
+import 'package:oryzn/core/widgets/custom_icon.dart';
 
-import 'package:oryzn/features/auth/riverpod/provider/auth_provider.dart';
 import 'package:oryzn/features/home/riverpod/provider/home_provider.dart';
 import 'package:oryzn/features/home/riverpod/state/home_state.dart';
 import 'package:oryzn/gen/assets.gen.dart';
-import 'package:oryzn/test_widget.dart';
 
 import '../../../extensions/extensions.dart';
 import '../widgets/widgets.dart';
@@ -43,75 +38,16 @@ class _HomeState extends ConsumerState<Home> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _hintOverlay = OverlayEntry(
-        builder: (context) => GestureDetector(
-          onLongPress: () {
-            _dismissHint();
-            showModalBottomSheet(
-              context: context,
-              isScrollControlled: true,
-              showDragHandle: true,
-              backgroundColor: ref.colors.surfaceSecondary,
-              shape: RoundedRectangleBorder(
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(16),
-                ),
-                side: BorderSide(color: ref.colors.strokeNeutral),
-              ),
-              builder: (context) {
-                return CustomizeBottomSheet();
-              },
-            );
+        builder: (context) => EditHintOverlay(
+          onDismiss: () {
+            ref.read(homeProvider.notifier).setBottomEditHint(true);
+            _hintOverlay?.remove();
+            _hintOverlay = null;
           },
-          behavior: HitTestBehavior.opaque,
-          child: Align(
-            alignment: Alignment(0, 0.35),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 24, sigmaY: 24),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 32,
-                      vertical: 24,
-                    ),
-                    decoration: BoxDecoration(
-                      color: ref.colors.surfaceSecondary,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        CustomIcon(
-                          asset: Assets.images.longPressIcon,
-                          size: 32,
-                          color: ref.colors.textIconPrimary,
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          'Long press Anywhere to edit',
-                          style: context.bodyMedium.copyWith(
-                            color: ref.colors.textIconPrimary,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
         ),
       );
       Overlay.of(context).insert(_hintOverlay!);
     });
-  }
-
-  void _dismissHint() {
-    _hintOverlay?.remove();
-    _hintOverlay = null;
-    StorageService.setHasSeenEditHint(true);
   }
 
   @override
@@ -126,31 +62,19 @@ class _HomeState extends ConsumerState<Home> {
   Widget build(BuildContext context) {
     final selectedTab = ref.watch(homeProvider.select((s) => s.selectedTab));
     final homeNotifier = ref.read(homeProvider.notifier);
-
-    /// Auth check
-    ref.listen(authProvider, (previous, next) {
-      if (!next.isAuthenticated && !next.isLoading) {
-        context.go(AppRoutes.login);
-      }
-    });
+    final showBottomEditHint = ref.watch(
+      homeProvider.select((s) => s.showBottomEditHint),
+    );
 
     return Scaffold(
-      appBar: AppBar(title: MainAppBar(), actions: []),
+      appBar: AppBar(title: MainAppBar()),
       body: SafeArea(
         child: GestureDetector(
           onLongPress: () {
-            _dismissHint();
             showModalBottomSheet(
               context: context,
               isScrollControlled: true,
               showDragHandle: true,
-              backgroundColor: ref.colors.surfaceSecondary,
-              shape: RoundedRectangleBorder(
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(16),
-                ),
-                side: BorderSide(color: ref.colors.strokeNeutral),
-              ),
               builder: (context) {
                 return CustomizeBottomSheet();
               },
@@ -222,6 +146,30 @@ class _HomeState extends ConsumerState<Home> {
                   ],
                 ),
               ),
+
+              showBottomEditHint
+                  ? Opacity(
+                      opacity: .4,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          CustomIcon(
+                            asset: Assets.images.longPressIcon,
+                            size: 24,
+                            color: ref.colors.textIconPrimary,
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            'Long press Anywhere to edit',
+                            style: context.bodySmall.copyWith(
+                              color: ref.colors.textIconPrimary,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : SizedBox.shrink(),
+              Gap(16),
             ],
           ),
         ),

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:oryzn/core/constants/storage_key.dart';
 
@@ -7,6 +9,30 @@ class StorageService {
   static Future<void> init() async {
     await Hive.initFlutter();
     _storageBox = await Hive.openBox(StorageKey.storageBox);
+
+    // Set a random user name if not already set
+    if (_storageBox.get(StorageKey.userName) == null) {
+      final names = [
+        'Tony Stark',
+        'James Bond',
+        'Sherlock Holmes',
+        'Jack Sparrow',
+        'Eleven',
+        'Superman',
+        'Batman',
+        'Spider-Man',
+        'John Wick',
+        'Thor',
+        'Captain America',
+        'Darth Vader',
+        'Deadpool',
+        'Harry Potter',
+        'Optimus Prime',
+        'Groot',
+      ];
+      final randomName = names[Random().nextInt(names.length)];
+      await setUserName(randomName);
+    }
   }
 
   static bool getIsDarkMode() {
@@ -47,6 +73,14 @@ class StorageService {
 
   static int getSelectedIconColor() {
     return _storageBox.get(StorageKey.selectedIconColor, defaultValue: 0);
+  }
+
+  static Future<void> setSelectedActiveColorIndex(int index) async {
+    await _storageBox.put(StorageKey.selectedActiveColorIndex, index);
+  }
+
+  static int getSelectedActiveColorIndex() {
+    return _storageBox.get(StorageKey.selectedActiveColorIndex, defaultValue: 0);
   }
 
   static Future<void> setSelectedAvatarIndex(int index) async {

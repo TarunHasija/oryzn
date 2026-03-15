@@ -1,13 +1,10 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oryzn/app.dart';
-import 'package:oryzn/firebase_options.dart';
 import 'core/services/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await StorageService.init();
   await WidgetService.init();
   runApp(ProviderScope(child: MyApp()));

@@ -141,6 +141,7 @@ class TimeUtils {
     BuildContext context,
     WidgetRef ref,
     int selectedIconColorIndex,
+    int selectedActiveColorIndex,
   ) {
     switch (state) {
       case DayState.past:
@@ -153,7 +154,8 @@ class TimeUtils {
             1];
 
       case DayState.today:
-        return ref.colors.activeDay;
+        if (selectedActiveColorIndex == 0) return ref.colors.activeDay;
+        return AppAssets.activeDay[selectedActiveColorIndex - 1];
 
       case DayState.future:
         return ref.colors.surfaceTertiary;

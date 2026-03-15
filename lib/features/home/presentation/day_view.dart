@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -55,6 +53,7 @@ class DayView extends ConsumerWidget {
                     context,
                     ref,
                     ref.watch(homeProvider.select((s) => s.selectedIconColor)),
+                    ref.watch(homeProvider.select((s) => s.selectedActiveColorIndex)),
                   ),
                 ),
               ],
@@ -101,6 +100,9 @@ class DayView extends ConsumerWidget {
                       ref,
                       ref.watch(
                         homeProvider.select((s) => s.selectedIconColor),
+                      ),
+                      ref.watch(
+                        homeProvider.select((s) => s.selectedActiveColorIndex),
                       ),
                     ),
                   ),

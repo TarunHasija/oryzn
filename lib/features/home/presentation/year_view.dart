@@ -25,6 +25,9 @@ class YearView extends ConsumerWidget {
     final selectedIconColor = ref.watch(
       homeProvider.select((s) => s.selectedIconColor),
     );
+    final selectedActiveColorIndex = ref.watch(
+      homeProvider.select((s) => s.selectedActiveColorIndex),
+    );
     final daysLeftInYear = TimeUtils.getDaysLeftInYear().toString();
     final percentageLeft = TimeUtils.getPercentageLeftInYear().toString();
 
@@ -61,6 +64,7 @@ class YearView extends ConsumerWidget {
                   context,
                   ref,
                   selectedIconColor,
+                  selectedActiveColorIndex,
                 ),
                 colorBlendMode: BlendMode.srcIn,
               );

@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
-import 'package:lottie/lottie.dart';
 import 'package:oryzn/core/constants/app_assets.dart';
-import 'package:oryzn/core/router/app_routes.dart';
-import 'package:oryzn/core/theme/theme_provider.dart';
-import 'package:oryzn/features/auth/riverpod/provider/auth_provider.dart';
-import 'package:oryzn/gen/assets.gen.dart';
 
 import '../../../extensions/extensions.dart';
 import '../riverpod/provider/provider.dart';
@@ -21,7 +15,7 @@ class AvatarBottomSheet extends ConsumerWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(16),
       child: Container(
-        color: ref.colors.surfaceSecondary,
+        color: ref.colors.surfacePrimary,
         child: SafeArea(
           top: false,
           child: Column(
@@ -74,19 +68,6 @@ class AvatarBottomSheet extends ConsumerWidget {
                               ),
                             ),
                           ),
-                          // if (homeState.selectAvatarIndex == index)
-                          //   Positioned(
-                          //     right: 8,
-                          //     bottom: 8,
-                          //     child: Container(
-                          //       height: 14,
-                          //       width: 14,
-                          //       decoration: BoxDecoration(
-                          //         color: ref.colors.textIconPrimary,
-                          //         shape: BoxShape.circle,
-                          //       ),
-                          //     ),
-                          //   ),
                         ],
                       ),
                     );
@@ -94,138 +75,8 @@ class AvatarBottomSheet extends ConsumerWidget {
                 ),
               ),
               Gap(24),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24),
-                child: _ThemeToggle(
-                  onToggle: () =>
-                      ref.read(themeProvider.notifier).toggleTheme(),
-                ),
-              ),
-              Gap(12),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24),
-                child: GestureDetector(
-                  onTap: () async {
-                    Navigator.of(context).pop();
-                    await ref.read(authProvider.notifier).signOut();
-                    if (context.mounted) context.go(AppRoutes.login);
-                  },
-                  child: Container(
-                    height: 58,
-                    padding: EdgeInsets.symmetric(horizontal: 12),
-                    decoration: BoxDecoration(
-                      color: ref.colors.surfacePrimary,
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.logout_rounded,
-                          color: ref.colors.textIconPrimary,
-                          size: 20,
-                        ),
-                        Gap(8),
-                        Text(
-                          'Log out',
-                          style: context.labelLarge.copyWith(
-                            color: ref.colors.textIconPrimary,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Gap(16),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class _ThemeToggle extends ConsumerWidget {
-  final VoidCallback onToggle;
-
-  const _ThemeToggle({required this.onToggle});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final isDark = ref.watch(themeProvider) == ThemeMode.dark;
-
-    return GestureDetector(
-      onTap: onToggle,
-      child: Container(
-        height: 58,
-        padding: EdgeInsets.symmetric(horizontal: 12),
-        decoration: BoxDecoration(
-          color: ref.colors.surfacePrimary,
-          borderRadius: BorderRadius.circular(24),
-        ),
-        child: Stack(
-          children: [
-            AnimatedAlign(
-              alignment: isDark ? Alignment.centerLeft : Alignment.centerRight,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeInOut,
-              child: Container(
-                width: MediaQuery.of(context).size.width / 2 - 24,
-                height: 34,
-                decoration: BoxDecoration(
-                  color: ref.colors.surfaceSecondary,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            ),
-            Positioned.fill(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Lottie.asset(
-                          Assets.images.nightLottie,
-                          width: 24,
-                          height: 24,
-                        ),
-                        Gap(8),
-                        Text(
-                          "Dark",
-                          style: context.labelLarge.copyWith(
-                            color: ref.colors.textIconPrimary,
-                          ),
-                        ),
-                        Gap(12),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Lottie.asset(
-                          Assets.images.sunnyLottie,
-                          width: 24,
-                          height: 24,
-                        ),
-                        Gap(8),
-                        Text(
-                          "Light",
-                          style: context.labelLarge.copyWith(
-                            color: ref.colors.textIconPrimary,
-                          ),
-                        ),
-                        Gap(12),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
         ),
       ),
     );

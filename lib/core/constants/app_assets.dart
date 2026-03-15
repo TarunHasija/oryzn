@@ -74,4 +74,14 @@ class AppAssets {
     Color(0xFF74DFC4),
     Color(0xFFE66789),
   ];
+
+  static const List<Color> activeDay = [
+    Color(0xFFFF3B3B), // Red
+    Color(0xFFFF8C42), // Orange
+    Color(0xFFFFE66D), // Yellow
+    Color(0xFF4CAF50), // Green
+    Color(0xFF42A5F5), // Blue
+    Color(0xFF5C6BC0), // Indigo
+    Color(0xFFAB47BC), // Violet
+  ];
 }
