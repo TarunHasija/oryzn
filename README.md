@@ -15,7 +15,7 @@ life stats. All in one clean, minimal app.
 ## Download
 
 Available on Google Play Store
-[Download Oryzn](your play store link here)
+[Download Oryzn](https://play.google.com/store/apps/details?id=com.oryzn.app&hl=en)
 
 ---
 
